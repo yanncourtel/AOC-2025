@@ -138,6 +138,7 @@ After each day you participate, jot down:
 - [Day 00 - Warming up](challenges/day00/README.md)
 - [Day 01 - Complexity as a compass.](challenges/day01/README.md)
 - [Day 02 - Change your stack & IDE.](challenges/day02/README.md)
+- [Day 03 - SOLID from another angle.](challenges/day03/README.md)
 
 ## Who are we?
 
