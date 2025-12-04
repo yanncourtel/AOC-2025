@@ -1,20 +1,18 @@
 ﻿namespace Gifts;
 
-public class Child(string name, BehaviorType behavior)
+public class Child
 {
-    public string Name { get; } = name;
-    private BehaviorType Behavior { get; } = behavior;
-    private WishList Wishlist { get; set; } = [];
+    public string Name { get; }
+    public string Behavior { get; }
+    public List<Toy> Wishlist { get; private set; }
+
+    public Child(string name, string behavior)
+    {
+        Name = name;
+        Behavior = behavior;
+        Wishlist = [];
+    }
 
     public void SetWishList(Toy firstChoice, Toy secondChoice, Toy thirdChoice)
         => Wishlist = [firstChoice, secondChoice, thirdChoice];
-
-    public Toy? GetDeservedToy() 
-        => Behavior switch
-        {
-            BehaviorType.NAUGHTY => Wishlist.LastChoice(),
-            BehaviorType.NICE => Wishlist.SecondChoice(),
-            BehaviorType.VERY_NICE => Wishlist.FirstChoice(),
-            _ => null
-        };
 }
