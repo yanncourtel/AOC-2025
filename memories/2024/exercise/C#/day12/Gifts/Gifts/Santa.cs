@@ -6,6 +6,6 @@ public class Santa(IChildrenRepository repository)
     {
         return repository.GetChild(childName) == null 
             ? throw new InvalidOperationException("No such child found") 
-            : repository.GetChild(childName)?.getToy();
+            : repository.GetChild(childName)?.GetDeservedToy();
     }
 }

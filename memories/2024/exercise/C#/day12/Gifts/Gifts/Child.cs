@@ -1,34 +1,20 @@
 ﻿namespace Gifts;
 
-public class Child
+public class Child(string name, BehaviorType behavior)
 {
-    public string Name { get; }
-    public BehaviorType Behavior { get; }
-    public List<Toy> Wishlist { get; private set; }
-
-    public Child(string name, BehaviorType behavior)
-    {
-        Name = name;
-        Behavior = behavior;
-        Wishlist = [];
-    }
+    public string Name { get; } = name;
+    private BehaviorType Behavior { get; } = behavior;
+    private WishList Wishlist { get; set; } = [];
 
     public void SetWishList(Toy firstChoice, Toy secondChoice, Toy thirdChoice)
         => Wishlist = [firstChoice, secondChoice, thirdChoice];
 
-    public Toy? getToy() 
+    public Toy? GetDeservedToy() 
         => Behavior switch
         {
-            BehaviorType.NAUGHTY => Wishlist[^1],
-            BehaviorType.NICE => Wishlist[1],
-            BehaviorType.VERY_NICE => Wishlist[0],
+            BehaviorType.NAUGHTY => Wishlist.LastChoice(),
+            BehaviorType.NICE => Wishlist.SecondChoice(),
+            BehaviorType.VERY_NICE => Wishlist.FirstChoice(),
             _ => null
         };
-}
-
-public enum BehaviorType
-{
-    NAUGHTY,
-    NICE,
-    VERY_NICE
 }
