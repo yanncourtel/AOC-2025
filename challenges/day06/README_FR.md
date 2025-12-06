@@ -1,106 +1,84 @@
-# Jour 05 – Bataille de TDD, Humain vs IA
+# Jour 6 – Construire un pipeline pur
 
-![extrait du jour](img/day05.png)
+![extrait du jour](img/day06.png)
 
-> **Fragment de mémoire – 2024 · Jour 5**  
-> Je me souviens de ces identifiants d’elfes.  
-> Des lignes de chiffres, des règles griffonnées sur une feuille,  
-> et une liste de tests qui s’allongeait dans la marge.  
-> Je pensais avoir tout couvert…  
-> jusqu’à ce que quelqu’un (ou quelque chose) demande :  
-> « Et *ce* cas-là ? »  
-> ...  
-> *Peut-être que je n’étais pas le seul à écrire des tests ce jour-là.*
+> **Fragment de mémoire – 2023 · Jour 7**
+> Je me souviens de cette méthode run.
+> Elle faisait tout à la fois : lire, transformer, enregistrer, écrire...
+> Nous l'avons divisée en plusieurs méthodes plus petites, et cela semblait mieux.
+> Mais il manquait encore quelque chose. Il y avait trop d'états... ...
+> Nous avons besoin d'un pipeline plus propre. Fragment de mémoire – 2023 · Jour 7
+> Je me souviens de cette méthode d'exécution.
+> Elle faisait tout à la fois : lire, transformer, enregistrer, écrire...
+> Nous l'avons divisée en méthodes plus petites, et cela nous a semblé mieux.
+> Mais il manquait encore quelque chose... Trop d'états... ...
+> *Nous avons besoin d'un pipeline plus propre.*
 
-Pour ce cinquième jour de l'aventure, nous revisitons la [mémoire](https://github.com/advent-of-craft/2024/blob/main/docs/exercise/day05/challenge.md) du **validateur d’EID** de l’édition 2024.
 
-La dernière fois, l’objectif était de concevoir ce validateur en TDD.
+Au sixième jour du voyage, nous revisitons le **souvenir de 2023 après une semaine**, où l'objectif initial était de simplifier la méthode « run » en extrayant le bon comportement.
 
-Cette fois, le twist est différent :
+Cette fois-ci, nous allons plus loin :
 
-> Toi et un **assistant IA** allez chacun proposer une liste de tests  
-> et tu décideras laquelle tu choisis.
+> **Nous visons à rendre « run » (ou son cœur) aussi *référentiellement transparent* que possible.**  
 
-Tu peux aussi combiner les deux.
-
----
-
-## Défi — Utilise les deux cerveaux (Humain & IA) pour implémenter le validateur.
-
-Le défi du jour se déroule en quatre phases :
-
-1. **Comprendre les règles métier**  
-2. **Écrire ta propre liste de tests (Humain)**  
-3. **Demander une liste de tests à une IA (IA)**  
-4. **Choisir, ajuster et implémenter en TDD**
-
-Tu peux faire tout l’exercice, ou choisir le **mode facile** en laissant de côté la clé de contrôle.  
-Un sous-ensemble ciblé, guidé par de bons tests, est largement suffisant.
+En bref : mêmes entrées → mêmes sorties.
+Pas d'état caché. Pas d'effets secondaires surprenants.
 
 ---
 
-## Rappel des règles EID
+## Défi — Transformez la méthode « run » en un pipeline pur
 
-D’après la mémoire 2024, un EID (Elf Identifier) comporte 8 chiffres :
+ 💡Un indice pour le défi d'aujourd'hui💡
 
-| Positions | Signification      | Valeurs possibles                                   |
-|----------|--------------------|----------------------------------------------------|
-| 1        | Sexe               | `1` Sloubi, `2` Gagna, `3` Catact                  |
-| 2–3      | Année de naissance | deux derniers chiffres, de `00` à `99`            |
-| 4–6      | Numéro de série    | ordre de naissance, de `001` à `999`              |
-| 7–8      | Clé de contrôle    | `97 - (les 6 premiers chiffres mod 97)`, de `01` à `97` |
+Une fonction pure devrait ressembler à ceci :
 
-But : concevoir un validateur (ou un cœur de validation) qui applique ces règles.
+```text
+   Result runPure(Input input)
+   ```
 
----
+   Vous devriez pouvoir **remplacer un appel** à cette fonction par son résultat  
+   sans modifier le comportement du programme.
 
-## Se rappeler du flux TDD
-
-Souviens-toi du cycle TDD :
-
-1. Écrire le test en premier (ou le modifier) → il doit **échouer** (rouge)  
-2. Écrire le code le plus simple pour le faire passer → **vert**  
-3. Refactorer en restant vert  
-
-💡 Astuce : laisse l’exécution des tests te guider vers ce qu’il faut faire ensuite.
-
-Laisse les meilleures idées gagner, pas le cerveau qui crie le plus fort.
+**Soyez conscient des modifications que vous apportez aux tests**
 
 ---
 
-## Zone de jeu
+## Où jouer
 
-Choisis la stack que tu veux utiliser comme **stack principale** cette année et ouvre la mémoire du Jour 5 de 2024 :
+Choisissez la pile que vous souhaitez utiliser comme **pile principale** cette année et ouvrez la mémoire du jour 7 de 2023 :
 
-- `memories/2024/exercises/<your-stack>/day05`
+- `memories/2023/exercises/<votre-pile>/day07`
 
-C’est ton terrain de jeu pour le validateur d’EID.
+C'est votre terrain de jeu.
 
-Si tu manques de temps, tu peux choisir le mode facile :
+Si vous manquez de temps :
 
-- commence par te limiter au **format + sexe + série**,  
-- ajoute des tests sur la clé de contrôle uniquement si tu as encore de la marge.
+- concentrez-vous sur la **transformation de base** (le cœur de la fonction `run`),  
+- extrayez juste ce qu'il faut pour obtenir une fonction pipeline clairement **pure**.
 
-Laisse tes tests montrer le chemin ➰💫
+Laissez le pipeline raconter l'histoire ➰💧
 
 ---
 
-## Partage avec la communauté
+## Partagez avec la communauté
 
-Partage tes découvertes sur Discord et récolte des retours de la communauté.  
-Partage ta liste de tests et explique pourquoi tu as fusionné / ajusté ou écarté certains éléments.
+Sur Discord, vous pouvez partager par exemple :
 
-Si tu veux rendre ton travail public, ajoute ton fichier dans :
+- un extrait avant/après de votre méthode `run`,
+- la signature de votre fonction de pipeline pure,
+- une brève note sur ce que vous avez poussé vers les bords (états mutables, sorties, etc.).
 
-- `community/solutions/dayNN/` en copiant le template :  
-  `community/solutions/TEMPLATE-[replace_with_your_name].md`  
-- puis ouvre une pull request.
+Si vous souhaitez que votre travail soit public, ajoutez votre fichier à :
 
-Dans `journey/your-name.md`, écris une courte entrée pour aujourd’hui :
+- `community/solutions/dayNN/` en copiant le modèle :  
+  `community/solutions/TEMPLATE-[remplacer_par_votre_nom].md`  
+- puis ouvrez une demande d'extraction.
 
-- À quoi ressemblait ma **liste de tests** avant l’IA ?  
-- En quoi l’IA m’a aidé ou surpris ?  
-- Quels tests ai-je gardés au final, et pourquoi ?  
-- Est-ce que partir d’une liste de tests “curatée” a changé ma façon de vivre le TDD ?
+Dans `journey/votre-nom.md`, rédigez une brève entrée pour aujourd'hui :
 
-Ce n’est pas une question de savoir qui gagne mais de comment cela à ajuster notre façon de penser. 🧠🤖
+- Quels effets secondaires ai-je trouvés dans `run` ?  
+- À quoi ressemble mon **pipeline pur** (à un niveau élevé) ?  
+- Le fait de rendre les choses plus transparentes sur le plan référentiel a-t-il changé ma façon de tester ou de raisonner sur le code ?  
+
+Chaque fois que vous rendez le code un peu plus « pur »,  
+vous facilitez votre retour dans la boucle temporelle à l'avenir. ⏳
