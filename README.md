@@ -140,6 +140,10 @@ After each day you participate, jot down:
 - [Day 02 - Change your stack & IDE.](challenges/day02/README.md)
 - [Day 03 - SOLID from another angle.](challenges/day03/README.md)
 - [Day 04 - Review the solution.](challenges/day04/README.md)
+- [Day 05 - Battle of TDD, Human vs AI.](challenges/day05/README.md)
+- [Day 06 - Carve a pure pipeline.](challenges/day06/README.md)
+- [Day 07 - Bug Driven Development.](challenges/day07/README.md)
+- [Day 08 - Ugly Code & developer bias.](challenges/day08/README.md)
 
 ## Who are we?
 
