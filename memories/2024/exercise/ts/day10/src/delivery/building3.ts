@@ -6,10 +6,12 @@ export class Building3 {
         for (let i = 0; i < instructions.length; i++) {
             const c = instructions[i];
             
-            if (hasElf) {
-                val.push(c === ')' ? 3 : -2);
-            } else {
-                val.push(c === '(' ? 1 : -1);
+            if (c === '(' || c === ')') {
+                if (hasElf) {
+                    val.push(c === ')' ? 3 : -2);
+                } else {
+                    val.push(c === '(' ? 1 : -1);
+                }
             }
         }
         
