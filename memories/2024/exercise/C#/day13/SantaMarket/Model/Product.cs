@@ -1,17 +1,35 @@
+using System;
+
 namespace SantaMarket.Model
 {
-    public class Product(string name, ProductUnit unit)
+    public class Product
     {
-        public string Name { get; } = name;
-        public ProductUnit Unit { get; } = unit;
+        public string Name { get; }
+        public ProductUnit Unit { get; }
 
-        public override bool Equals(object? obj) =>
-            obj is Product product &&
-            Name == product.Name &&
-            Unit == product.Unit;
+        public Product(string name, ProductUnit unit)
+        {
+            Name = name;
+            Unit = unit;
+        }
 
-        public override int GetHashCode() => HashCode.Combine(Name, Unit);
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
 
-        public override string ToString() => $"Product{{name='{Name}', unit={Unit}}}";
+            var product = (Product)obj;
+            return Name == product.Name && Unit == product.Unit;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, Unit);
+        }
+
+        public override string ToString()
+        {
+            return $"Product{{name='{Name}', unit={Unit}}}";
+        }
     }
 }

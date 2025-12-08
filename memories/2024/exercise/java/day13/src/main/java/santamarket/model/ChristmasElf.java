@@ -1,8 +1,6 @@
 package santamarket.model;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ChristmasElf {
     private final SantamarketCatalog catalog;
@@ -16,18 +14,18 @@ public class ChristmasElf {
         offers.put(product, new Offer(offerType, product, argument));
     }
 
-    public Receipt checksOutArticlesFrom(ShoppingSleigh thesleigh) {
+    public Receipt checksOutArticlesFrom(ShoppingSleigh sleigh) {
         Receipt receipt = new Receipt();
-        List<ProductQuantity> productQuantities = thesleigh.getItems();
-        for (ProductQuantity pq : productQuantities) {
-            Product p = pq.getProduct();
-            double quantity = pq.getQuantity();
+        
+        for (ProductQuantity item : sleigh.getItems()) {
+            Product p = item.getProduct();
+            double quantity = item.getQuantity();
             double unitPrice = catalog.getUnitPrice(p);
-            double price = quantity * unitPrice;
-            receipt.addProduct(p, quantity, unitPrice, price);
+            receipt.addProduct(quantity * unitPrice);
         }
-        thesleigh.handleOffers(receipt, offers, catalog);
-
+        
+        sleigh.handleOffers(receipt, offers, catalog);
+        
         return receipt;
     }
 }

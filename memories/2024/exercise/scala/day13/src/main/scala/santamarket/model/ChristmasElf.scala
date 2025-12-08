@@ -1,19 +1,26 @@
 package santamarket.model
 
-class ChristmasElf(val catalog: SantamarketCatalog):
-  private val offers = scala.collection.mutable.Map[Product, Offer]()
+import scala.collection.mutable
 
-  def addSpecialOffer(offerType: SpecialOfferType, product: Product, argument: Double): Unit =
+class ChristmasElf(private val catalog: SantamarketCatalog) {
+  private val offers = mutable.Map[Product, Offer]()
+
+  def addSpecialOffer(offerType: SpecialOfferType, product: Product, argument: Double): Unit = {
     offers(product) = Offer(offerType, product, argument)
+  }
 
-  def checksOutArticlesFrom(sleigh: ShoppingSleigh): Receipt =
-    val receipt = Receipt()
-    sleigh.getItems.foreach { pq =>
-      val p = pq.product
-      val quantity = pq.quantity
+  def checksOutArticlesFrom(sleigh: ShoppingSleigh): Receipt = {
+    val receipt = new Receipt()
+
+    for (item <- sleigh.getItems) {
+      val p = item.product
+      val quantity = item.quantity
       val unitPrice = catalog.getUnitPrice(p)
-      val price = quantity * unitPrice
-      receipt.addProduct(p, quantity, unitPrice, price)
+      receipt.addProduct(quantity * unitPrice)
     }
+
     sleigh.handleOffers(receipt, offers.toMap, catalog)
+
     receipt
+  }
+}

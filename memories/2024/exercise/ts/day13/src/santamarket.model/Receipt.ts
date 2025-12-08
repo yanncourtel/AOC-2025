@@ -1,31 +1,16 @@
-import { ReceiptItem } from './ReceiptItem';
-import { Discount } from './Discount';
-import {Product} from "./Product";
-
 export class Receipt {
-    private items: ReceiptItem[] = [];
-    private discounts: Discount[] = [];
+    private totalPrice: number = 0.0;
+    private totalDiscount: number = 0.0;
 
-    addProduct(product: Product, quantity: number, price: number, totalPrice: number) {
-        this.items.push(new ReceiptItem(product, quantity, price, totalPrice));
+    addProduct(price: number): void {
+        this.totalPrice += price;
     }
 
-    addDiscount(discount: Discount) {
-        this.discounts.push(discount);
+    addDiscount(discount: number): void {
+        this.totalDiscount += discount;
     }
 
     getTotalPrice(): number {
-        return (
-            this.items.reduce((sum, item) => sum + item.totalPrice, 0) +
-            this.discounts.reduce((sum, discount) => sum + discount.discountAmount, 0)
-        );
-    }
-
-    getItems(): ReadonlyArray<ReceiptItem> {
-        return this.items;
-    }
-
-    getDiscounts(): ReadonlyArray<Discount> {
-        return this.discounts;
+        return this.totalPrice - this.totalDiscount;
     }
 }

@@ -1,27 +1,35 @@
+using System.Collections.Generic;
+
 namespace SantaMarket.Model
 {
-    public class ChristmasElf(ISantamarketCatalog catalog)
+    public class ChristmasElf
     {
-        private readonly Dictionary<Product, Offer> _offers = new();
+        private readonly ISantamarketCatalog catalog;
+        private readonly Dictionary<Product, Offer> offers = new Dictionary<Product, Offer>();
+
+        public ChristmasElf(ISantamarketCatalog catalog)
+        {
+            this.catalog = catalog;
+        }
 
         public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
-            => _offers[product] = new Offer(offerType, product, argument);
+        {
+            offers[product] = new Offer(offerType, product, argument);
+        }
 
-        public Receipt ChecksOutArticlesFrom(ShoppingSleigh thesleigh)
+        public Receipt ChecksOutArticlesFrom(ShoppingSleigh sleigh)
         {
             var receipt = new Receipt();
-            var productQuantities = thesleigh.Items();
 
-            foreach (var pq in productQuantities)
+            foreach (var item in sleigh.GetItems())
             {
-                var p = pq.Product;
-                var quantity = pq.Quantity;
+                var p = item.Product;
+                var quantity = item.Quantity;
                 var unitPrice = catalog.GetUnitPrice(p);
-                var price = quantity * unitPrice;
-                receipt.AddProduct(p, quantity, unitPrice, price);
+                receipt.AddProduct(quantity * unitPrice);
             }
 
-            thesleigh.HandleOffers(receipt, _offers, catalog);
+            sleigh.HandleOffers(receipt, offers, catalog);
 
             return receipt;
         }

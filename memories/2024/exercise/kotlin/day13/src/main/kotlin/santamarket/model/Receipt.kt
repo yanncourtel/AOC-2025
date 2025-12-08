@@ -1,30 +1,16 @@
 package santamarket.model
 
 class Receipt {
-    private val items = mutableListOf<ReceiptItem>()
-    private val discounts = mutableListOf<Discount>()
+    private var totalPrice = 0.0
+    private var totalDiscount = 0.0
 
-    fun getTotalPrice(): Double {
-        var total = 0.0
-        items.forEach { item -> total += item.totalPrice }
-        discounts.forEach { discount -> total += discount.discountAmount }
-        return total
+    fun addProduct(price: Double) {
+        totalPrice += price
     }
 
-    fun addProduct(product: Product, quantity: Double, price: Double, totalPrice: Double) {
-        items.add(ReceiptItem(product, quantity, price, totalPrice))
+    fun addDiscount(discount: Double) {
+        totalDiscount += discount
     }
 
-    fun getItems(): List<ReceiptItem> = items.toList()
-
-    fun addDiscount(discount: Discount) {
-        discounts.add(discount)
-    }
-
-    fun getDiscounts(): List<Discount> = discounts.toList()
-
-    override fun equals(other: Any?): Boolean =
-        other is Receipt && items == other.items && discounts == other.discounts
-
-    override fun hashCode(): Int = 31 * items.hashCode() + discounts.hashCode()
+    fun getTotalPrice(): Double = totalPrice - totalDiscount
 }

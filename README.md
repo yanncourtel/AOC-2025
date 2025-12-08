@@ -144,6 +144,7 @@ After each day you participate, jot down:
 - [Day 06 - Carve a pure pipeline.](challenges/day06/README.md)
 - [Day 07 - Bug Driven Development.](challenges/day07/README.md)
 - [Day 08 - Ugly Code & developer bias.](challenges/day08/README.md)
+- [Day 09 - A conventional journey.](challenges/day09/README.md)
 
 ## Who are we?
 

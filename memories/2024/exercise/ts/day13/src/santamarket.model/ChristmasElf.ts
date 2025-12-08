@@ -6,12 +6,11 @@ import { ShoppingSleigh } from './ShoppingSleigh';
 import { Receipt } from './Receipt';
 
 export class ChristmasElf {
-    private readonly catalog: SantamarketCatalog;
-    private readonly offers: Map<Product, Offer>;
+    private catalog: SantamarketCatalog;
+    private offers: Map<Product, Offer> = new Map();
 
     constructor(catalog: SantamarketCatalog) {
         this.catalog = catalog;
-        this.offers = new Map<Product, Offer>();
     }
 
     addSpecialOffer(offerType: SpecialOfferType, product: Product, argument: number): void {
@@ -20,13 +19,13 @@ export class ChristmasElf {
 
     checksOutArticlesFrom(sleigh: ShoppingSleigh): Receipt {
         const receipt = new Receipt();
-        const productQuantities = sleigh.getItems();
 
-        productQuantities.forEach(({ product, quantity }) => {
-            const unitPrice = this.catalog.getUnitPrice(product);
-            const totalPrice = quantity * unitPrice;
-            receipt.addProduct(product, quantity, unitPrice, totalPrice);
-        });
+        for (const item of sleigh.getItems()) {
+            const p = item.getProduct();
+            const quantity = item.getQuantity();
+            const unitPrice = this.catalog.getUnitPrice(p);
+            receipt.addProduct(quantity * unitPrice);
+        }
 
         sleigh.handleOffers(receipt, this.offers, this.catalog);
 

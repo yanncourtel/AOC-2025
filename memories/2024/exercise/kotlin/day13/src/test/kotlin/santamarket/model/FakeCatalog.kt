@@ -10,6 +10,6 @@ class FakeCatalog : SantamarketCatalog {
     }
 
     override fun getUnitPrice(product: Product): Double {
-        return prices[product.name] ?: error("Product not found in catalog")
+        return prices[product.name]!!
     }
 }
