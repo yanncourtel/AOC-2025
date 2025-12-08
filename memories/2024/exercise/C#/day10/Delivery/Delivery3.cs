@@ -11,13 +11,16 @@ namespace Delivery
             {
                 var c = instructions[i];
                 
-                if (hasElf)
+                if (c == '(' || c == ')')
                 {
-                    val.Add(c == ')' ? 3 : -2);
-                }
-                else
-                {
-                    val.Add(c == '(' ? 1 : -1);
+                    if (hasElf)
+                    {
+                        val.Add(c == ')' ? 3 : -2);
+                    }
+                    else
+                    {
+                        val.Add(c == '(' ? 1 : -1);
+                    }
                 }
             }
             

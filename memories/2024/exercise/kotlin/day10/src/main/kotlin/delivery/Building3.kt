@@ -8,10 +8,12 @@ object Building3 {
         for (i in instructions.indices) {
             val c = instructions[i]
             
-            if (hasElf) {
-                valList.add(if (c == ')') 3 else -2)
-            } else {
-                valList.add(if (c == '(') 1 else -1)
+            if (c == '(' || c == ')') {
+                if (hasElf) {
+                    valList.add(if (c == ')') 3 else -2)
+                } else {
+                    valList.add(if (c == '(') 1 else -1)
+                }
             }
         }
         
