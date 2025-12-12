@@ -101,7 +101,7 @@ We will go to /exercises and the dayNN
 
 You can then pick the stack you want to use as your **main stack**.
 
-- `exercises/2024/day12/<your-stack>/`
+- `exercises/day12/<your-stack>/`
 
 This is your playground.
 

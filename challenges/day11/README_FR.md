@@ -39,7 +39,7 @@ nous allons dans `/exercises` et les dayNN.
 
 Tu peux ensuite choisir la stack que tu veux utiliser comme **stack principale** :
 
-- `exercises/2024/day11/<your-stack>/`
+- `exercises/day11/<your-stack>/`
 
 C’est ton terrain de jeu.
 

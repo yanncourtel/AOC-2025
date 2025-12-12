@@ -65,7 +65,7 @@ nous n’allons pas dans `memories/` mais dans `/exercises`, jour par jour.
 
 Tu peux ensuite choisir la stack que tu veux utiliser comme **stack principale** :
 
-- `exercises/2024/day10/<your-stack>/`
+- `exercises/day10/<your-stack>/`
 
 C’est ton terrain de jeu.
 

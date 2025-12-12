@@ -147,6 +147,7 @@ After each day you participate, jot down:
 - [Day 09 - A conventional journey.](challenges/day09/README.md)
 - [Day 10 - Opening the Time Portal.](challenges/day10/README.md)
 - [Day 11 - A world without mock](challenges/day11/README.md)
+- [Day 12 - Human password policy.](challenges/day12/README.md)
 
 ## Who are we?
 
