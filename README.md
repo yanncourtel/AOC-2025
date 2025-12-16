@@ -135,7 +135,7 @@ After each day you participate, jot down:
 [Here are the instructions for your journey](challenges/INSTRUCTIONS.md)
 
 ## Key Activations
-- [Day 00 - Warming up](challenges/day00/README.md)
+- [Day 00 - Warming up.](challenges/day00/README.md)
 - [Day 01 - Complexity as a compass.](challenges/day01/README.md)
 - [Day 02 - Change your stack & IDE.](challenges/day02/README.md)
 - [Day 03 - SOLID from another angle.](challenges/day03/README.md)
@@ -146,11 +146,12 @@ After each day you participate, jot down:
 - [Day 08 - Ugly Code & developer bias.](challenges/day08/README.md)
 - [Day 09 - A conventional journey.](challenges/day09/README.md)
 - [Day 10 - Opening the Time Portal.](challenges/day10/README.md)
-- [Day 11 - A world without mock](challenges/day11/README.md)
+- [Day 11 - A world without mock.](challenges/day11/README.md)
 - [Day 12 - Human password policy.](challenges/day12/README.md)
 - [Day 13 - Keyboard-first refactoring.](challenges/day13/README.md)
-- [Day 14 - Your tests tell a story](challenges/day14/README.md)
+- [Day 14 - Your tests tell a story.](challenges/day14/README.md)
 - [Day 15 - A paradigm shift.](challenges/day15/README.md)
+- [Day 16 - Code as a documentation.](challenges/day16/README.md)
 
 ## Who are we?
 
