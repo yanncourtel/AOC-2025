@@ -153,6 +153,7 @@ After each day you participate, jot down:
 - [Day 15 - A paradigm shift.](challenges/day15/README.md)
 - [Day 16 - Code as a documentation.](challenges/day16/README.md)
 - [Day 17 - Santa's lost gift dispatcher.](challenges/day17/README.md)
+- [Day 18 - Risky sleigh.](challenges/day18/README.md)
 
 ## Who are we?
 
