@@ -8,7 +8,7 @@
 
 On the 19th day, the memory brings you in an elven workshop working for Santa.
 
-The workshop uses various elf delivery companies to distribute toys. Each company employs elves from different regions (North Pole, Nordic, Alpine, Arctic). 
+The workshop uses various elf delivery companies to distribute toys. Each company employs elves from different regions (North Pole, Nordic, Alpine, Arctic). Refer to the [tax rates](./TAX_RATES.md).
 
 You need to add regional tax calculation to the existing invoicing system.
 

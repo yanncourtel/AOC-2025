@@ -9,7 +9,7 @@
 Au 19ᵉ jour, la mémoire te transporte dans un atelier d’elfes travaillant pour le Père Noël.
 
 L’atelier utilise plusieurs compagnies de livraison elfiques pour distribuer les jouets.  
-Chaque compagnie emploie des elfes de différentes régions (Pôle Nord, Nordique, Alpine, Arctique).
+Chaque compagnie emploie des elfes de différentes régions (Pôle Nord, Nordique, Alpine, Arctique). Référez-vous à la [grille des taxes](./TAX_RATES.md).
 
 Tu dois ajouter le calcul des taxes régionales au système de facturation existant.
 
