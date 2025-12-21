@@ -157,6 +157,7 @@ After each day you participate, jot down:
 - [Day 19 - North Pole Companies.](challenges/day19/README.md)
 - [Day 20 - Architecture proposal.](challenges/day20/README.md)
 - [Day 21 - Community activations.](challenges/day21/README.md)
+- [Day 22 - Fixing the Timeloop Processor.](challenges/day22/README.md)
 
 ## Who are we?
 
