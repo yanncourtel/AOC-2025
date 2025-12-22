@@ -22,6 +22,13 @@ Join us on [`Discord`](https://discord.gg/E5Z9s9UKTS) and [`Linkedin`](https://w
 
 ---
 
+## The online calendar
+
+The calendar for the 2025 edition of the Advent Of Craft can be found here:
+https://www.adventofcraft.com
+
+---
+
 ## What is this edition about?
 
 Christmas is closing in again. You’ve already survived a couple of December adventures, refactored some questionable code, and probably shipped features you’re still not proud of.
@@ -158,6 +165,7 @@ After each day you participate, jot down:
 - [Day 20 - Architecture proposal.](challenges/day20/README.md)
 - [Day 21 - Community activations.](challenges/day21/README.md)
 - [Day 22 - Fixing the Timeloop Processor.](challenges/day22/README.md)
+- [Day 23 - Stabilizing the Karma.](challenges/day23/README.md)
 
 ## Who are we?
 
