@@ -33,7 +33,7 @@ namespace NorthPole.Tests
             var invoice = LoadInvoice(ResourcesOrderWithTaxes);
             var printer = new InvoicePrinter();
 
-            var result = printer.Print(invoice, elfCompanies);
+            var result = printer.PrintWithTaxes(invoice, elfCompanies);
 
             Approvals.Verify(result);
         }
