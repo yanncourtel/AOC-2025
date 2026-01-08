@@ -1,12 +1,12 @@
+
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 
 namespace NorthPole
 {
-    
+
     public class InvoicePrinter
     {
         private static readonly Dictionary<string, (string Name, double Rate)> TaxRates = new()
@@ -16,37 +16,37 @@ namespace NorthPole
             ["alpine"] = ("Alpine Region", 0.20),
             ["arctic"] = ("Arctic Region", 0.10)
         };
-        
+
+        private static readonly CultureInfo CurrencyFormat = new("en-US");
+
         public string Print(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
         {
             var totalAmount = 0;
             var loyaltyPoints = 0;
             var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
-            var currencyFormat = new CultureInfo("en-US");
 
             foreach (var delivery in invoice.Deliveries)
             {
                 var company = elfCompanies[delivery.CompanyID];
                 var deliveryCost = CalculateDeliveryCost(delivery, company);
 
-                result.AppendLine($" {company.Name}: {(deliveryCost / 100.0).ToString("C", currencyFormat)} ({delivery.Packages} packages)");
-                
+                result.AppendLine($" {company.Name}: {FormatMoney(deliveryCost)} ({delivery.Packages} packages)");
+            
                 totalAmount += deliveryCost;
                 loyaltyPoints += CalculateLoyaltyPoints(delivery, company);
             }
 
-            result.AppendLine($"Amount owed is {(totalAmount / 100.0).ToString("C", currencyFormat)}");
+            result.AppendLine($"Amount owed is {FormatMoney(totalAmount)}");
             result.AppendLine($"You earned {loyaltyPoints} loyalty points");
             return result.ToString();
         }
-        
+    
         public string PrintWithTaxes(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
         {
             var subtotal = 0;
             var totalTax = 0;
             var loyaltyPoints = 0;
             var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
-            var currencyFormat = new CultureInfo("en-US");
 
             foreach (var delivery in invoice.Deliveries)
             {
@@ -54,22 +54,27 @@ namespace NorthPole
                 var deliveryCost = CalculateDeliveryCost(delivery, company);
                 var tax = CalculateTax(deliveryCost, company.Region);
 
-                result.AppendLine($" {company.Name}: {(deliveryCost / 100.0).ToString("C", currencyFormat)} ({delivery.Packages} packages)");
-                
+                result.AppendLine($" {company.Name}: {FormatMoney(deliveryCost)} ({delivery.Packages} packages)");
+            
                 var taxInfo = TaxRates[company.Region];
-                result.AppendLine($"   Tax ({taxInfo.Name} - {taxInfo.Rate:P0}): {(tax / 100.0).ToString("C", currencyFormat)}");
-                
+                result.AppendLine($"   Tax ({taxInfo.Name} - {taxInfo.Rate:P0}): {FormatMoney(tax)}");
+            
                 subtotal += deliveryCost;
                 totalTax += tax;
                 loyaltyPoints += CalculateLoyaltyPoints(delivery, company);
             }
-            
-            result.AppendLine($"Subtotal: {(subtotal / 100.0).ToString("C", currencyFormat)}");
-            result.AppendLine($"Total Tax: {(totalTax / 100.0).ToString("C", currencyFormat)}");
-            result.AppendLine($"Amount owed is {((subtotal + totalTax) / 100.0).ToString("C", currencyFormat)}");
+        
+            result.AppendLine($"Subtotal: {FormatMoney(subtotal)}");
+            result.AppendLine($"Total Tax: {FormatMoney(totalTax)}");
+            result.AppendLine($"Amount owed is {FormatMoney(subtotal + totalTax)}");
             result.AppendLine($"You earned {loyaltyPoints} loyalty points");
-            
+        
             return result.ToString();
+        }
+
+        private static string FormatMoney(int amountInCents)
+        {
+            return (amountInCents / 100.0).ToString("C", CurrencyFormat);
         }
 
         private int CalculateTax(int cost, string region)
@@ -78,7 +83,7 @@ namespace NorthPole
             {
                 throw new Exception($"Unknown region: {region}");
             }
-            
+        
             return (int)(cost * taxInfo.Rate);
         }
 

@@ -112,8 +112,8 @@
 **Goal:** Reduce duplication without changing structure
 
 **Steps:**
-- [ ] Extract FormatMoney(int amountInCents) method
-- [ ] Extract CultureInfo as readonly field
+- [x] Extract FormatMoney(int amountInCents) method
+- [x] Extract CultureInfo as readonly field
 - [ ] Extract GetTaxInfo(string region) method
 
 **Impact:** Minor duplication reduction, improved readability  
