@@ -11,19 +11,32 @@ namespace NorthPole.Tests
     [UseReporter(typeof(DiffReporter))]
     public class InvoicePrinterTests
     {
+        private const string ResourcesOrder = "Resources/order.json";
+        private const string ResourcesOrderWithTaxes = "Resources/orderWithTaxes.json";
+
         [Fact]
         public void ExampleInvoice()
         {
             var elfCompanies = LoadElfCompanies();
-            var invoice = LoadInvoice();
+            var invoice = LoadInvoice(ResourcesOrder);
             var printer = new InvoicePrinter();
 
             var result = printer.Print(invoice, elfCompanies);
 
             Approvals.Verify(result);
         }
+        
+        [Fact]
+        public void ExampleInvoiceWithTaxes()
+        {
+            var elfCompanies = LoadElfCompanies();
+            var invoice = LoadInvoice(ResourcesOrderWithTaxes);
+            var printer = new InvoicePrinter();
 
-        // TODO: Add ExampleInvoiceWithTaxes() test here
+            var result = printer.Print(invoice, elfCompanies);
+
+            Approvals.Verify(result);
+        }
 
         private Dictionary<string, ElfCompany> LoadElfCompanies()
         {
@@ -42,9 +55,9 @@ namespace NorthPole.Tests
             return companies;
         }
 
-        private Invoice LoadInvoice()
+        private Invoice LoadInvoice(string resourceFileName)
         {
-            var json = File.ReadAllText("Resources/order.json");
+            var json = File.ReadAllText(resourceFileName);
             var data = JObject.Parse(json);
             var customer = data["customer"].ToString();
             var deliveries = new List<Delivery>();
