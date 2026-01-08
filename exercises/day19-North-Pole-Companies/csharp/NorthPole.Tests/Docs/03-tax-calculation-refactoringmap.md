@@ -114,7 +114,7 @@
 **Steps:**
 - [x] Extract FormatMoney(int amountInCents) method
 - [x] Extract CultureInfo as readonly field
-- [ ] Extract GetTaxInfo(string region) method
+- [x] Extract GetTaxInfo(string region) method
 
 **Impact:** Minor duplication reduction, improved readability  
 **Risk:** Very low  

@@ -53,10 +53,9 @@ namespace NorthPole
                 var company = elfCompanies[delivery.CompanyID];
                 var deliveryCost = CalculateDeliveryCost(delivery, company);
                 var tax = CalculateTax(deliveryCost, company.Region);
-
+                var taxInfo = GetTaxInfo(company.Region);
+                
                 result.AppendLine($" {company.Name}: {FormatMoney(deliveryCost)} ({delivery.Packages} packages)");
-            
-                var taxInfo = TaxRates[company.Region];
                 result.AppendLine($"   Tax ({taxInfo.Name} - {taxInfo.Rate:P0}): {FormatMoney(tax)}");
             
                 subtotal += deliveryCost;
@@ -77,13 +76,18 @@ namespace NorthPole
             return (amountInCents / 100.0).ToString("C", CurrencyFormat);
         }
 
-        private int CalculateTax(int cost, string region)
+        private static (string Name, double Rate) GetTaxInfo(string region)
         {
             if (!TaxRates.TryGetValue(region, out var taxInfo))
             {
                 throw new Exception($"Unknown region: {region}");
             }
-        
+            return taxInfo;
+        }
+
+        private int CalculateTax(int cost, string region)
+        {
+            var taxInfo = GetTaxInfo(region);
             return (int)(cost * taxInfo.Rate);
         }
 
