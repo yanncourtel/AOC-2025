@@ -1,0 +1,16 @@
+{
+  "name": "sleigh-trip-refactoring-kata",
+  "version": "1.0.0",
+  "description": "Sleigh Trip refactoring kata in TypeScript",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.1",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
+  }
+}

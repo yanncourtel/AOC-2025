@@ -1,0 +1,106 @@
+using ControlSystem.Core;
+using FluentAssertions;
+
+namespace ControlSystem.Tests
+{
+    public class TestControlSystem : IDisposable
+    {
+        private readonly StringWriter _output;
+        private readonly TextWriter _originalOutput;
+
+        public TestControlSystem()
+        {
+            _output = new StringWriter();
+            _originalOutput = Console.Out;
+            Console.SetOut(_output);
+        }
+
+        [Fact]
+        public void TestStart()
+        {
+            // The system has been started
+            var controlSystem = new Core.ControlSystem();
+            controlSystem.Action = SleighAction.Flying;
+            controlSystem.Status = SleighEngineStatus.Off;
+            controlSystem.StartSystem();
+            controlSystem.Status.Should().Be(SleighEngineStatus.On);
+            _output.ToString().Trim().Should().Be("Starting the sleigh...\r\nSystem ready.");
+        }
+
+        [Fact]
+        public void TestAscend()
+        {
+            var controlSystem = new Core.ControlSystem();
+            controlSystem.StartSystem();
+            controlSystem.Ascend();
+            controlSystem.Action.Should().Be(SleighAction.Flying);
+            _output.ToString().Trim().Should().Be("Starting the sleigh...\r\nSystem ready.\r\nAscending...");
+        }
+
+        [Fact]
+        public void TestDescend()
+        {
+            var controlSystem = new Core.ControlSystem();
+            controlSystem.StartSystem();
+            controlSystem.Ascend();
+            controlSystem.Invoking(cs => cs.Descend()).Should().NotThrow<SleighNotStartedException>();
+            controlSystem.Action.Should().Be(SleighAction.Hovering);
+            _output.ToString().Trim().Should()
+                .Be("Starting the sleigh...\r\nSystem ready.\r\nAscending...\r\nDescending...");
+        }
+
+        [Fact]
+        public void TestPark()
+        {
+            var controlSystem = new Core.ControlSystem();
+            controlSystem.StartSystem();
+
+            //we want to drain all the magic power to test the parking
+            SafeAscendManyTimes(controlSystem, 10);
+
+            controlSystem.Park();
+            controlSystem.Ascend();
+
+            Assert.True(controlSystem.Action == SleighAction.Flying);
+            _output.ToString().Trim().Should()
+                .Be("Starting the sleigh...\r\n" +
+                    "System ready.\r\n" +
+                    "Ascending...\r\n" +
+                    "Ascending...\r\n" +
+                    "Ascending...\r\n" +
+                    "Ascending...\r\n" +
+                    "Parking...\r\n" +
+                    "Ascending...");
+        }
+        
+        [Fact]
+        public void TestStop()
+        {
+            // The system has been started
+            var controlSystem = new Core.ControlSystem();
+            controlSystem.Action = SleighAction.Parked;
+            controlSystem.Status = SleighEngineStatus.On;
+            controlSystem.StopSystem();
+            Assert.True(controlSystem.Status == SleighEngineStatus.Off);
+            _output.ToString().Trim().Should()
+                .Be("Stopping the sleigh...\r\nSystem shutdown.");
+        }
+
+        public void Dispose()
+        {
+            Console.SetOut(_originalOutput);
+            _output.Dispose();
+        }
+        
+        private static void SafeAscendManyTimes(Core.ControlSystem controlSystem, int numberOfTimes) {
+            try {
+                for (int i=0;i<numberOfTimes;i++){
+                    controlSystem.Ascend();
+                }
+            }
+                catch(ReindeersNeedRestException e) {
+                //we want to continue
+            }
+        }
+    }
+}

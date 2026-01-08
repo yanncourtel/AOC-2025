@@ -1,0 +1,17 @@
+{
+  "rudolph-express": {
+    "name": "Rudolph Express Delivery",
+    "type": "express",
+    "region": "north-pole"
+  },
+  "jingles-standard": {
+    "name": "Jingle's Standard Service",
+    "type": "standard",
+    "region": "nordic"
+  },
+  "frostys-express": {
+    "name": "Frosty's Fast Fleet",
+    "type": "express",
+    "region": "alpine"
+  }
+}

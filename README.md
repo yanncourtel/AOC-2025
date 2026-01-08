@@ -22,6 +22,13 @@ Join us on [`Discord`](https://discord.gg/E5Z9s9UKTS) and [`Linkedin`](https://w
 
 ---
 
+## The online calendar
+
+The calendar for the 2025 edition of the Advent Of Craft can be found here:
+https://www.adventofcraft.com
+
+---
+
 ## What is this edition about?
 
 Christmas is closing in again. You’ve already survived a couple of December adventures, refactored some questionable code, and probably shipped features you’re still not proud of.
@@ -135,7 +142,7 @@ After each day you participate, jot down:
 [Here are the instructions for your journey](challenges/INSTRUCTIONS.md)
 
 ## Key Activations
-- [Day 00 - Warming up](challenges/day00/README.md)
+- [Day 00 - Warming up.](challenges/day00/README.md)
 - [Day 01 - Complexity as a compass.](challenges/day01/README.md)
 - [Day 02 - Change your stack & IDE.](challenges/day02/README.md)
 - [Day 03 - SOLID from another angle.](challenges/day03/README.md)
@@ -144,6 +151,23 @@ After each day you participate, jot down:
 - [Day 06 - Carve a pure pipeline.](challenges/day06/README.md)
 - [Day 07 - Bug Driven Development.](challenges/day07/README.md)
 - [Day 08 - Ugly Code & developer bias.](challenges/day08/README.md)
+- [Day 09 - A conventional journey.](challenges/day09/README.md)
+- [Day 10 - Opening the Time Portal.](challenges/day10/README.md)
+- [Day 11 - A world without mock.](challenges/day11/README.md)
+- [Day 12 - Human password policy.](challenges/day12/README.md)
+- [Day 13 - Keyboard-first refactoring.](challenges/day13/README.md)
+- [Day 14 - Your tests tell a story.](challenges/day14/README.md)
+- [Day 15 - A paradigm shift.](challenges/day15/README.md)
+- [Day 16 - Code as a documentation.](challenges/day16/README.md)
+- [Day 17 - Santa's lost gift dispatcher.](challenges/day17/README.md)
+- [Day 18 - Risky sleigh.](challenges/day18/README.md)
+- [Day 19 - North Pole Companies.](challenges/day19/README.md)
+- [Day 20 - Architecture proposal.](challenges/day20/README.md)
+- [Day 21 - Community activations.](challenges/day21/README.md)
+- [Day 22 - Fixing the Timeloop Processor.](challenges/day22/README.md)
+- [Day 23 - Stabilizing the Karma.](challenges/day23/README.md)
+- [Day 24 - The ultimate timebrain bug.](challenges/day24/README.md)
+- [Day 25 - Share your journey](challenges/day25/README.md)
 
 ## Who are we?
 

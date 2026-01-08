@@ -1,10 +1,14 @@
 namespace SantaMarket.Model
 {
-    public class ProductQuantity(Product product, double quantity)
+    public class ProductQuantity
     {
-        public Product Product { get; } = product;
-        public double Quantity { get; } = quantity;
+        public Product Product { get; }
+        public double Quantity { get; }
 
-        public override string ToString() => $"ProductQuantity{{product={Product}, quantity={Quantity}}}";
+        public ProductQuantity(Product product, double quantity)
+        {
+            Product = product;
+            Quantity = quantity;
+        }
     }
 }

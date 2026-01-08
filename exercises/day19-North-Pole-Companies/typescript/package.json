@@ -1,0 +1,16 @@
+{
+  "name": "north-pole-kata",
+  "version": "1.0.0",
+  "dependencies": {
+    "approvals": "^7.3.0",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.8",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
