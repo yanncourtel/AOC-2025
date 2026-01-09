@@ -127,13 +127,15 @@
 **Goal:** Remove manual relationship resolution, create cohesive domain objects
 
 **Steps:**
-- [ ] Create EnrichedDelivery (or DeliveryLine) class
-- [ ] Enrich deliveries at method entry point
-- [ ] Update loops to use enriched model
-- [ ] Remove dictionary parameter passing into calculation methods
+- [x] Create EnrichedDelivery (or DeliveryLine) class
+- [x] Enrich deliveries at method entry point
+- [x] Update loops to use enriched model
+- [x] Remove dictionary parameter passing into calculation methods
+- [ ] Creating EnrichedInvoice object containing the EnrichedDeliveries
+- [ ] Update Print methods to use EnrichedInvoice
 
-**Impact:** Cleaner domain model, simpler method signatures
-**Risk:** Medium (changes method internals, but tests protect)
+**Impact:** Cleaner domain model, simpler method signatures  
+**Risk:** Medium (changes method internals, but tests protect)  
 **Tests:** Should pass (behavior unchanged)
 
 ---
@@ -245,9 +247,13 @@
 ## Success Criteria Per Phase
 
 ### Phase 1
-- [ ] FormatMoney helper exists
-- [ ] Used in both Print methods
-- [ ] Tests pass
+- [x] FormatMoney helper exists
+- [x] Used in both Print methods
+- [x] Tests pass
+- 
+### Phase 1.5
+- [x] Using EnrichedDelivery instead of Delivery
+- [ ] Using EnrichedInvoice instead of Invoice
 
 ### Phase 2
 - [ ] Money type exists and is used everywhere
