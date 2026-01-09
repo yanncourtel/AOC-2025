@@ -1,3 +1,4 @@
+
 using System;
 using System.Globalization;
 using System.Text;
@@ -18,15 +19,27 @@ public class InvoicePrinter
 
     private static readonly CultureInfo CurrencyFormat = new("en-US");
 
+    // Legacy methods - kept for backward compatibility
     public string Print(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
     {
-        var enrichedDeliveries = EnrichDeliveries(invoice.Deliveries, elfCompanies);
-            
+        var enrichedInvoice = EnrichInvoice(invoice, elfCompanies);
+        return Print(enrichedInvoice);
+    }
+    
+    public string PrintWithTaxes(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
+    {
+        var enrichedInvoice = EnrichInvoice(invoice, elfCompanies);
+        return PrintWithTaxes(enrichedInvoice);
+    }
+
+    // New methods - work with enriched domain model
+    private string Print(EnrichedInvoice invoice)
+    {
         var totalAmount = 0;
         var loyaltyPoints = 0;
         var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
 
-        foreach (var enriched in enrichedDeliveries)
+        foreach (var enriched in invoice.Deliveries)
         {
             var deliveryCost = CalculateDeliveryCost(enriched);
 
@@ -40,17 +53,15 @@ public class InvoicePrinter
         result.AppendLine($"You earned {loyaltyPoints} loyalty points");
         return result.ToString();
     }
-    
-    public string PrintWithTaxes(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
+
+    private string PrintWithTaxes(EnrichedInvoice invoice)
     {
-        var enrichedDeliveries = EnrichDeliveries(invoice.Deliveries, elfCompanies);
-            
         var subtotal = 0;
         var totalTax = 0;
         var loyaltyPoints = 0;
         var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
 
-        foreach (var enriched in enrichedDeliveries)
+        foreach (var enriched in invoice.Deliveries)
         {
             var deliveryCost = CalculateDeliveryCost(enriched);
             var tax = CalculateTax(deliveryCost, enriched.Company.Region);
@@ -72,11 +83,13 @@ public class InvoicePrinter
         return result.ToString();
     }
 
-    private static List<EnrichedDelivery> EnrichDeliveries(List<Delivery> deliveries, Dictionary<string, ElfCompany> elfCompanies)
+    private static EnrichedInvoice EnrichInvoice(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
     {
-        return deliveries
+        var enrichedDeliveries = invoice.Deliveries
             .Select(delivery => new EnrichedDelivery(delivery, elfCompanies[delivery.CompanyID]))
             .ToList();
+            
+        return new EnrichedInvoice(invoice.Customer, enrichedDeliveries);
     }
 
     private static string FormatMoney(int amountInCents)

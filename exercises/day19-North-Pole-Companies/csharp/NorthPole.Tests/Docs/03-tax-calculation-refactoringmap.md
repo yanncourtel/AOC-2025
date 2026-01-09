@@ -253,7 +253,7 @@
 - 
 ### Phase 1.5
 - [x] Using EnrichedDelivery instead of Delivery
-- [ ] Using EnrichedInvoice instead of Invoice
+- [x] Using EnrichedInvoice instead of Invoice
 
 ### Phase 2
 - [ ] Money type exists and is used everywhere
