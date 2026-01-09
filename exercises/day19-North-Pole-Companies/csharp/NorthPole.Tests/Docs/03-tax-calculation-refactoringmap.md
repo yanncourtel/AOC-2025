@@ -122,6 +122,22 @@
 
 ---
 
+### Phase 1.5: Domain Model Coherence (Low-Medium Risk)
+
+**Goal:** Remove manual relationship resolution, create cohesive domain objects
+
+**Steps:**
+- [ ] Create EnrichedDelivery (or DeliveryLine) class
+- [ ] Enrich deliveries at method entry point
+- [ ] Update loops to use enriched model
+- [ ] Remove dictionary parameter passing into calculation methods
+
+**Impact:** Cleaner domain model, simpler method signatures
+**Risk:** Medium (changes method internals, but tests protect)
+**Tests:** Should pass (behavior unchanged)
+
+---
+
 ### Phase 2: Introduce Value Objects (Medium Risk)
 
 **Goal:** Create domain vocabulary
