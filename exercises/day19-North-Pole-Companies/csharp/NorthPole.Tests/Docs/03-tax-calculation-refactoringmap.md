@@ -131,8 +131,8 @@
 - [x] Enrich deliveries at method entry point
 - [x] Update loops to use enriched model
 - [x] Remove dictionary parameter passing into calculation methods
-- [ ] Creating EnrichedInvoice object containing the EnrichedDeliveries
-- [ ] Update Print methods to use EnrichedInvoice
+- [x] Creating EnrichedInvoice object containing the EnrichedDeliveries
+- [x] Update Print methods to use EnrichedInvoice
 
 **Impact:** Cleaner domain model, simpler method signatures  
 **Risk:** Medium (changes method internals, but tests protect)  

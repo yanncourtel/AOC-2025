@@ -20,17 +20,11 @@ public class InvoicePrinter
     private static readonly CultureInfo CurrencyFormat = new("en-US");
 
     // Legacy methods - kept for backward compatibility
-    public string Print(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
-    {
-        var enrichedInvoice = EnrichInvoice(invoice, elfCompanies);
-        return Print(enrichedInvoice);
-    }
-    
-    public string PrintWithTaxes(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
-    {
-        var enrichedInvoice = EnrichInvoice(invoice, elfCompanies);
-        return PrintWithTaxes(enrichedInvoice);
-    }
+    public string Print(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies) 
+        => Print(EnrichInvoice(invoice, elfCompanies));
+
+    public string PrintWithTaxes(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies) 
+        => PrintWithTaxes(EnrichInvoice(invoice, elfCompanies));
 
     // New methods - work with enriched domain model
     private string Print(EnrichedInvoice invoice)
