@@ -95,32 +95,6 @@ public class InvoicePrinter
         return new Tax(taxInfo.Name, taxInfo.Rate, taxAmount);
     }
 
-    private Money CalculateDeliveryCost(EnrichedDelivery enriched)
-    {
-        int cost;
-        switch (enriched.Company.Type)
-        {
-            case "express":
-                cost = 50000;
-                if (enriched.Packages > 100)
-                {
-                    cost += 500 * (enriched.Packages - 100);
-                }
-                break;
-            case "standard":
-                cost = 30000;
-                if (enriched.Packages > 50)
-                {
-                    cost += 1000 + 300 * (enriched.Packages - 50);
-                }
-                cost += 200 * enriched.Packages;
-                break;
-            default:
-                throw new Exception($"unknown type: {enriched.Company.Type}");
-        }
-        return Money.FromCents(cost);
-    }
-
     private int CalculateLoyaltyPoints(EnrichedDelivery enriched)
     {
         var points = Math.Max(enriched.Packages - 50, 0);
