@@ -145,7 +145,7 @@
 **Goal:** Create domain vocabulary
 
 #### Step 2.1: Money Value Object
-- [ ] Create Money struct with AmountInCents property
+- [x] Create Money struct with AmountInCents property
 - [ ] Add FormatAsCurrency(CultureInfo) method
 - [ ] Add arithmetic operators (+, -, *, /)
 - [ ] Update CalculateDeliveryCost return type

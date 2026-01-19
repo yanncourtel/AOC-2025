@@ -1,6 +1,5 @@
 
 using System;
-using System.Globalization;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +16,6 @@ public class InvoicePrinter
         ["arctic"] = ("Arctic Region", 0.10)
     };
 
-    private static readonly CultureInfo CurrencyFormat = new("en-US");
-
     // Legacy methods - kept for backward compatibility
     public string Print(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies) 
         => Print(EnrichInvoice(invoice, elfCompanies));
@@ -29,7 +26,7 @@ public class InvoicePrinter
     // New methods - work with enriched domain model
     private string Print(EnrichedInvoice invoice)
     {
-        var totalAmount = 0;
+        var totalAmount = Money.Zero;
         var loyaltyPoints = 0;
         var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
 
@@ -37,21 +34,21 @@ public class InvoicePrinter
         {
             var deliveryCost = CalculateDeliveryCost(enriched);
 
-            result.AppendLine($" {enriched.Company.Name}: {FormatMoney(deliveryCost)} ({enriched.Packages} packages)");
+            result.AppendLine($" {enriched.Company.Name}: {deliveryCost} ({enriched.Packages} packages)");
             
             totalAmount += deliveryCost;
             loyaltyPoints += CalculateLoyaltyPoints(enriched);
         }
 
-        result.AppendLine($"Amount owed is {FormatMoney(totalAmount)}");
+        result.AppendLine($"Amount owed is {totalAmount}");
         result.AppendLine($"You earned {loyaltyPoints} loyalty points");
         return result.ToString();
     }
 
     private string PrintWithTaxes(EnrichedInvoice invoice)
     {
-        var subtotal = 0;
-        var totalTax = 0;
+        var subtotal = Money.Zero;
+        var totalTax = Money.Zero;
         var loyaltyPoints = 0;
         var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
 
@@ -61,17 +58,17 @@ public class InvoicePrinter
             var tax = CalculateTax(deliveryCost, enriched.Company.Region);
             var taxInfo = GetTaxInfo(enriched.Company.Region);
 
-            result.AppendLine($" {enriched.Company.Name}: {FormatMoney(deliveryCost)} ({enriched.Packages} packages)");
-            result.AppendLine($"   Tax ({taxInfo.Name} - {taxInfo.Rate:P0}): {FormatMoney(tax)}");
+            result.AppendLine($" {enriched.Company.Name}: {deliveryCost} ({enriched.Packages} packages)");
+            result.AppendLine($"   Tax ({taxInfo.Name} - {taxInfo.Rate:P0}): {tax}");
             
             subtotal += deliveryCost;
             totalTax += tax;
             loyaltyPoints += CalculateLoyaltyPoints(enriched);
         }
         
-        result.AppendLine($"Subtotal: {FormatMoney(subtotal)}");
-        result.AppendLine($"Total Tax: {FormatMoney(totalTax)}");
-        result.AppendLine($"Amount owed is {FormatMoney(subtotal + totalTax)}");
+        result.AppendLine($"Subtotal: {subtotal}");
+        result.AppendLine($"Total Tax: {totalTax}");
+        result.AppendLine($"Amount owed is {subtotal + totalTax}");
         result.AppendLine($"You earned {loyaltyPoints} loyalty points");
         
         return result.ToString();
@@ -86,11 +83,6 @@ public class InvoicePrinter
         return new EnrichedInvoice(invoice.Customer, enrichedDeliveries);
     }
 
-    private static string FormatMoney(int amountInCents)
-    {
-        return (amountInCents / 100.0).ToString("C", CurrencyFormat);
-    }
-
     private static (string Name, double Rate) GetTaxInfo(string region)
     {
         if (!TaxRates.TryGetValue(region, out var taxInfo))
@@ -100,13 +92,13 @@ public class InvoicePrinter
         return taxInfo;
     }
 
-    private int CalculateTax(int cost, string region)
+    private Money CalculateTax(Money cost, string region)
     {
         var taxInfo = GetTaxInfo(region);
-        return (int)(cost * taxInfo.Rate);
+        return cost * taxInfo.Rate;
     }
 
-    private int CalculateDeliveryCost(EnrichedDelivery enriched)
+    private Money CalculateDeliveryCost(EnrichedDelivery enriched)
     {
         var cost = 0;
         switch (enriched.Company.Type)
@@ -129,7 +121,7 @@ public class InvoicePrinter
             default:
                 throw new Exception($"unknown type: {enriched.Company.Type}");
         }
-        return cost;
+        return Money.FromCents(cost);
     }
 
     private int CalculateLoyaltyPoints(EnrichedDelivery enriched)
