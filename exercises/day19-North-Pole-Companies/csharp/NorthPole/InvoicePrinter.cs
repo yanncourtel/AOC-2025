@@ -18,58 +18,79 @@ public class InvoicePrinter
 
     // Legacy methods - kept for backward compatibility
     public string Print(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies) 
-        => Print(EnrichInvoice(invoice, elfCompanies));
+        => Print(
+            EnrichInvoice(invoice, elfCompanies));
+
+    private string Print(EnrichedInvoice invoice) 
+        => FormatInvoice(
+            CalculateInvoice(invoice, includeTax: false));
 
     public string PrintWithTaxes(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies) 
-        => PrintWithTaxes(EnrichInvoice(invoice, elfCompanies));
+        => PrintWithTaxes(
+            EnrichInvoice(invoice, elfCompanies));
 
-    // New methods - work with enriched domain model
-    private string Print(EnrichedInvoice invoice)
+    private string PrintWithTaxes(EnrichedInvoice invoice) 
+        => FormatInvoiceWithTaxes(
+            CalculateInvoice(invoice, includeTax: true));
+
+    private string FormatInvoice(CalculatedInvoice invoice)
     {
-        var totalAmount = Money.Zero;
-        var loyaltyPoints = 0;
         var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
 
-        foreach (var enriched in invoice.Deliveries)
+        foreach (var line in invoice.Lines)
         {
-            var deliveryCost = CalculateDeliveryCost(enriched);
-
-            result.AppendLine($" {enriched.Company.Name}: {deliveryCost} ({enriched.Packages} packages)");
-            
-            totalAmount += deliveryCost;
-            loyaltyPoints += CalculateLoyaltyPoints(enriched);
+            result.AppendLine($" {line.CompanyName}: {line.Cost} ({line.Packages} packages)");
         }
 
-        result.AppendLine($"Amount owed is {totalAmount}");
-        result.AppendLine($"You earned {loyaltyPoints} loyalty points");
+        result.AppendLine($"Amount owed is {invoice.TotalAmount}");
+        result.AppendLine($"You earned {invoice.TotalLoyaltyPoints} loyalty points");
+    
         return result.ToString();
     }
 
-    private string PrintWithTaxes(EnrichedInvoice invoice)
+    private CalculatedInvoice CalculateInvoice(EnrichedInvoice invoice, bool includeTax)
     {
-        var subtotal = Money.Zero;
-        var totalTax = Money.Zero;
-        var loyaltyPoints = 0;
+        var lines = invoice.Deliveries
+            .Select(d => CalculateInvoiceLine(d, includeTax))
+            .ToList();
+
+        return CalculatedInvoice.From(invoice.Customer, lines);
+    }
+
+    private InvoiceLine CalculateInvoiceLine(EnrichedDelivery enriched, bool includeTax)
+    {
+        var cost = CalculateDeliveryCost(enriched);
+        var tax = includeTax ? CalculateTax(cost, enriched.Company.Region) : (Tax?)null;
+        var loyaltyPoints = CalculateLoyaltyPoints(enriched);
+
+        return new InvoiceLine(
+            enriched.Company.Name,
+            enriched.Packages,
+            cost,
+            tax,
+            loyaltyPoints
+        );
+    }
+
+    private string FormatInvoiceWithTaxes(CalculatedInvoice invoice)
+    {
         var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
 
-        foreach (var enriched in invoice.Deliveries)
+        foreach (var line in invoice.Lines)
         {
-            var deliveryCost = CalculateDeliveryCost(enriched);
-            var tax = CalculateTax(deliveryCost, enriched.Company.Region);
-
-            result.AppendLine($" {enriched.Company.Name}: {deliveryCost} ({enriched.Packages} packages)");
-            result.AppendLine($"   {tax.FormatDescription()}");
-    
-            subtotal += deliveryCost;
-            totalTax += tax.Amount;
-            loyaltyPoints += CalculateLoyaltyPoints(enriched);
+            result.AppendLine($" {line.CompanyName}: {line.Cost} ({line.Packages} packages)");
+        
+            if (line.Tax.HasValue)
+            {
+                result.AppendLine($"   {line.Tax.Value.FormatDescription()}");
+            }
         }
 
-        result.AppendLine($"Subtotal: {subtotal}");
-        result.AppendLine($"Total Tax: {totalTax}");
-        result.AppendLine($"Amount owed is {subtotal + totalTax}");
-        result.AppendLine($"You earned {loyaltyPoints} loyalty points");
-
+        result.AppendLine($"Subtotal: {invoice.Subtotal}");
+        result.AppendLine($"Total Tax: {invoice.TotalTax}");
+        result.AppendLine($"Amount owed is {invoice.TotalAmount}");
+        result.AppendLine($"You earned {invoice.TotalLoyaltyPoints} loyalty points");
+    
         return result.ToString();
     }
 

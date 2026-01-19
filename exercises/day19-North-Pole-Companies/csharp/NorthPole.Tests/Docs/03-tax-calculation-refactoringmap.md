@@ -173,20 +173,20 @@
 **Goal:** Model the invoice calculation result
 
 #### Step 3.1: InvoiceLine
-- [ ] Create InvoiceLine class
-- [ ] Add properties: CompanyName, Packages, Cost, Tax (nullable)
-- [ ] Extract CalculateInvoiceLine(Delivery, ElfCompany, bool) method
-- [ ] Change loop to build List of InvoiceLine
+- [x] Create InvoiceLine class
+- [x] Add properties: CompanyName, Packages, Cost, Tax (nullable)
+- [x] Extract CalculateInvoiceLine(Delivery, ElfCompany, bool) method
+- [x] Change loop to build List of InvoiceLine
 
 **Impact:** Calculation separated from formatting  
 **Risk:** Medium  
 **Tests:** Should pass
 
 #### Step 3.2: CalculatedInvoice
-- [ ] Create CalculatedInvoice class
-- [ ] Add properties: Customer, Lines, Subtotal, TotalTax, TotalAmount, LoyaltyPoints
-- [ ] Extract CalculateInvoice method returning CalculatedInvoice
-- [ ] Update Print methods to format CalculatedInvoice
+- [x] Create CalculatedInvoice class
+- [x] Add properties: Customer, Lines, Subtotal, TotalTax, TotalAmount, LoyaltyPoints
+- [x] Extract CalculateInvoice method returning CalculatedInvoice
+- [x] Update Print methods to format CalculatedInvoice
 
 **Impact:** Full separation of calculation and presentation  
 **Risk:** Medium-High  
