@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using Xunit;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace NorthPole.Tests
 {
@@ -13,34 +14,34 @@ namespace NorthPole.Tests
     {
         private const string ResourcesOrder = "Resources/order.json";
         private const string ResourcesOrderWithTaxes = "Resources/orderWithTaxes.json";
-        private readonly IInvoiceFormatter _formatter = new TextInvoiceFormatter();
-        private readonly IInvoiceFormatter _formatterWithTax = new TextInvoiceWithTaxFormatter();
-        
+
+        private static InvoicePrinter CreateInvoicePrinter() => new();
+
         [Fact]
         public void ExampleInvoice()
         {
             var elfCompanies = LoadElfCompanies();
             var invoice = LoadInvoice(ResourcesOrder);
-            var printer = new InvoicePrinter(_formatter, _formatterWithTax);
 
-            var result = printer.Print(invoice, elfCompanies);
+            var result = CreateInvoicePrinter() 
+                .Print(invoice, elfCompanies);
 
             Approvals.Verify(result);
         }
-        
+
         [Fact]
         public void ExampleInvoiceWithTaxes()
         {
             var elfCompanies = LoadElfCompanies();
             var invoice = LoadInvoice(ResourcesOrderWithTaxes);
-            var printer = new InvoicePrinter(_formatter, _formatterWithTax);
 
-            var result = printer.PrintWithTaxes(invoice, elfCompanies);
+            var result = CreateInvoicePrinter()
+                .PrintWithTaxes(invoice, elfCompanies);
 
             Approvals.Verify(result);
         }
 
-        private Dictionary<string, ElfCompany> LoadElfCompanies()
+        private static Dictionary<string, ElfCompany> LoadElfCompanies()
         {
             var json = File.ReadAllText("Resources/elfCompanies.json");
             var data = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(json);
@@ -57,20 +58,16 @@ namespace NorthPole.Tests
             return companies;
         }
 
-        private Invoice LoadInvoice(string resourceFileName)
+        private static Invoice LoadInvoice(string resourceFileName)
         {
             var json = File.ReadAllText(resourceFileName);
             var data = JObject.Parse(json);
             var customer = data["customer"].ToString();
-            var deliveries = new List<Delivery>();
+            var deliveries = data["deliveries"]
+                .Select(d => 
+                    new Delivery(d["companyID"].ToString(), d["packages"].ToObject<int>()))
+                .ToList();
 
-            foreach (var d in data["deliveries"])
-            {
-                deliveries.Add(new Delivery(
-                    d["companyID"].ToString(),
-                    d["packages"].ToObject<int>()
-                ));
-            }
             return new Invoice(customer, deliveries);
         }
     }

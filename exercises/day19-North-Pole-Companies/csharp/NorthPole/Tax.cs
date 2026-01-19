@@ -2,9 +2,10 @@
 
 public readonly struct Tax
 {
-    public string RegionName { get; }
-    public double Rate { get; }
     public Money Amount { get; }
+    
+    private string RegionName { get; }
+    private double Rate { get; }
 
     public Tax(string regionName, double rate, Money amount)
     {

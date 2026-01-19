@@ -18,7 +18,12 @@ public class InvoicePrinter
     private readonly IInvoiceFormatter _formatter;
     private readonly IInvoiceFormatter _formatterWithTax;
 
-    public InvoicePrinter(IInvoiceFormatter formatter, IInvoiceFormatter formatterWithTax)
+    public InvoicePrinter() 
+        : this(new TextInvoiceFormatter(), new TextInvoiceWithTaxFormatter())
+    {
+    }
+
+    private InvoicePrinter(IInvoiceFormatter formatter, IInvoiceFormatter formatterWithTax)
     {
         _formatter = formatter;
         _formatterWithTax = formatterWithTax;
@@ -92,7 +97,7 @@ public class InvoicePrinter
 
     private Money CalculateDeliveryCost(EnrichedDelivery enriched)
     {
-        var cost = 0;
+        int cost;
         switch (enriched.Company.Type)
         {
             case "express":
