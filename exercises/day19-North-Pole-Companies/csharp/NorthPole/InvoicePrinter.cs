@@ -56,21 +56,20 @@ public class InvoicePrinter
         {
             var deliveryCost = CalculateDeliveryCost(enriched);
             var tax = CalculateTax(deliveryCost, enriched.Company.Region);
-            var taxInfo = GetTaxInfo(enriched.Company.Region);
 
             result.AppendLine($" {enriched.Company.Name}: {deliveryCost} ({enriched.Packages} packages)");
-            result.AppendLine($"   Tax ({taxInfo.Name} - {taxInfo.Rate:P0}): {tax}");
-            
+            result.AppendLine($"   {tax.FormatDescription()}");
+    
             subtotal += deliveryCost;
-            totalTax += tax;
+            totalTax += tax.Amount;
             loyaltyPoints += CalculateLoyaltyPoints(enriched);
         }
-        
+
         result.AppendLine($"Subtotal: {subtotal}");
         result.AppendLine($"Total Tax: {totalTax}");
         result.AppendLine($"Amount owed is {subtotal + totalTax}");
         result.AppendLine($"You earned {loyaltyPoints} loyalty points");
-        
+
         return result.ToString();
     }
 
@@ -92,10 +91,11 @@ public class InvoicePrinter
         return taxInfo;
     }
 
-    private Money CalculateTax(Money cost, string region)
+    private Tax CalculateTax(Money cost, string region)
     {
         var taxInfo = GetTaxInfo(region);
-        return cost * taxInfo.Rate;
+        var taxAmount = cost * taxInfo.Rate;
+        return new Tax(taxInfo.Name, taxInfo.Rate, taxAmount);
     }
 
     private Money CalculateDeliveryCost(EnrichedDelivery enriched)

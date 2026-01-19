@@ -146,21 +146,21 @@
 
 #### Step 2.1: Money Value Object
 - [x] Create Money struct with AmountInCents property
-- [ ] Add FormatAsCurrency(CultureInfo) method
-- [ ] Add arithmetic operators (+, -, *, /)
-- [ ] Update CalculateDeliveryCost return type
-- [ ] Update CalculateTax return type
-- [ ] Update all local variables and accumulation logic
+- [x] Add FormatAsCurrency(CultureInfo) method
+- [x] Add arithmetic operators (+, -, *, /)
+- [x] Update CalculateDeliveryCost return type
+- [x] Update CalculateTax return type
+- [x] Update all local variables and accumulation logic
 
 **Impact:** Better domain modeling, type safety  
 **Risk:** Medium (many changes, compiler helps)  
 **Tests:** Should pass (wrapping/unwrapping values)
 
 #### Step 2.2: Tax Value Object
-- [ ] Create Tax class with RegionName, Rate, Amount properties
-- [ ] Add FormatDescription() method
-- [ ] Update CalculateTax to return Tax instead of int
-- [ ] Simplify tax line formatting
+- [x] Create Tax class with RegionName, Rate, Amount properties
+- [x] Add FormatDescription() method
+- [x] Update CalculateTax to return Tax instead of int
+- [x] Simplify tax line formatting
 
 **Impact:** Tax information cohesive and testable  
 **Risk:** Low  
