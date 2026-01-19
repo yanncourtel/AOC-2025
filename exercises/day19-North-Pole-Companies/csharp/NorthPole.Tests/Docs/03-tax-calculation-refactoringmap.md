@@ -199,11 +199,11 @@
 **Goal:** Separate presentation from business logic
 
 **Steps:**
-- [ ] Create IInvoiceFormatter interface
-- [ ] Implement TextInvoiceFormatter class
-- [ ] Move all StringBuilder logic to formatter
-- [ ] Inject formatter into InvoicePrinter
-- [ ] Print methods become: Calculate then Format
+- [x] Create IInvoiceFormatter interface
+- [x] Implement TextInvoiceFormatter class
+- [x] Move all StringBuilder logic to formatter
+- [x] Inject formatter into InvoicePrinter
+- [x] Print methods become: Calculate then Format
 
 **Impact:** Complete separation of concerns  
 **Risk:** Low (calculation already separated)  

@@ -13,13 +13,15 @@ namespace NorthPole.Tests
     {
         private const string ResourcesOrder = "Resources/order.json";
         private const string ResourcesOrderWithTaxes = "Resources/orderWithTaxes.json";
-
+        private readonly IInvoiceFormatter _formatter = new TextInvoiceFormatter();
+        private readonly IInvoiceFormatter _formatterWithTax = new TextInvoiceWithTaxFormatter();
+        
         [Fact]
         public void ExampleInvoice()
         {
             var elfCompanies = LoadElfCompanies();
             var invoice = LoadInvoice(ResourcesOrder);
-            var printer = new InvoicePrinter();
+            var printer = new InvoicePrinter(_formatter, _formatterWithTax);
 
             var result = printer.Print(invoice, elfCompanies);
 
@@ -31,7 +33,7 @@ namespace NorthPole.Tests
         {
             var elfCompanies = LoadElfCompanies();
             var invoice = LoadInvoice(ResourcesOrderWithTaxes);
-            var printer = new InvoicePrinter();
+            var printer = new InvoicePrinter(_formatter, _formatterWithTax);
 
             var result = printer.PrintWithTaxes(invoice, elfCompanies);
 

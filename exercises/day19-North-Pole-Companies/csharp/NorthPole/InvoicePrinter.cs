@@ -1,6 +1,5 @@
 
 using System;
-using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,14 +14,23 @@ public class InvoicePrinter
         ["alpine"] = ("Alpine Region", 0.20),
         ["arctic"] = ("Arctic Region", 0.10)
     };
+    
+    private readonly IInvoiceFormatter _formatter;
+    private readonly IInvoiceFormatter _formatterWithTax;
 
+    public InvoicePrinter(IInvoiceFormatter formatter, IInvoiceFormatter formatterWithTax)
+    {
+        _formatter = formatter;
+        _formatterWithTax = formatterWithTax;
+    }
+    
     // Legacy methods - kept for backward compatibility
     public string Print(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies) 
         => Print(
             EnrichInvoice(invoice, elfCompanies));
 
     private string Print(EnrichedInvoice invoice) 
-        => FormatInvoice(
+        => _formatter.Format(
             CalculateInvoice(invoice, includeTax: false));
 
     public string PrintWithTaxes(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies) 
@@ -30,23 +38,8 @@ public class InvoicePrinter
             EnrichInvoice(invoice, elfCompanies));
 
     private string PrintWithTaxes(EnrichedInvoice invoice) 
-        => FormatInvoiceWithTaxes(
+        => _formatterWithTax.Format(
             CalculateInvoice(invoice, includeTax: true));
-
-    private string FormatInvoice(CalculatedInvoice invoice)
-    {
-        var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
-
-        foreach (var line in invoice.Lines)
-        {
-            result.AppendLine($" {line.CompanyName}: {line.Cost} ({line.Packages} packages)");
-        }
-
-        result.AppendLine($"Amount owed is {invoice.TotalAmount}");
-        result.AppendLine($"You earned {invoice.TotalLoyaltyPoints} loyalty points");
-    
-        return result.ToString();
-    }
 
     private CalculatedInvoice CalculateInvoice(EnrichedInvoice invoice, bool includeTax)
     {
@@ -70,28 +63,6 @@ public class InvoicePrinter
             tax,
             loyaltyPoints
         );
-    }
-
-    private string FormatInvoiceWithTaxes(CalculatedInvoice invoice)
-    {
-        var result = new StringBuilder($"Invoice for {invoice.Customer}\n");
-
-        foreach (var line in invoice.Lines)
-        {
-            result.AppendLine($" {line.CompanyName}: {line.Cost} ({line.Packages} packages)");
-        
-            if (line.HasTax())
-            {
-                result.AppendLine($"   {line.Tax}");
-            }
-        }
-
-        result.AppendLine($"Subtotal: {invoice.Subtotal}");
-        result.AppendLine($"Total Tax: {invoice.TotalTax}");
-        result.AppendLine($"Amount owed is {invoice.TotalAmount}");
-        result.AppendLine($"You earned {invoice.TotalLoyaltyPoints} loyalty points");
-    
-        return result.ToString();
     }
 
     private static EnrichedInvoice EnrichInvoice(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
