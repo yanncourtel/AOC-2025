@@ -57,7 +57,7 @@ public class InvoicePrinter
 
     private InvoiceLine CalculateInvoiceLine(EnrichedDelivery enriched, bool includeTax)
     {
-        var cost = CalculateDeliveryCost(enriched);
+        var cost = enriched.CalculateCost();
         var tax = includeTax ? CalculateTax(cost, enriched.Company.Region) : (Tax?)null;
         var loyaltyPoints = CalculateLoyaltyPoints(enriched);
 

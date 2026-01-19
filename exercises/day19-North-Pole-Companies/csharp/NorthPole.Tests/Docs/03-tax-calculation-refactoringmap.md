@@ -216,10 +216,10 @@
 **Goal:** Full SOLID compliance
 
 #### Step 5.1: Extract Pricing
-- [ ] Create IDeliveryPricer interface
-- [ ] Implement DeliveryPricer class
-- [ ] Move CalculateDeliveryCost logic
-- [ ] Consider Strategy pattern for express/standard
+- [x] Create IDeliveryPricer interface
+- [x] Implement DeliveryPricer class
+- [x] Move CalculateDeliveryCost logic
+- [x] Consider Strategy pattern for express/standard
 
 #### Step 5.2: Extract Tax Calculation
 - [ ] Create ITaxCalculator interface
