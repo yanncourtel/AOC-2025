@@ -80,9 +80,9 @@ public class InvoicePrinter
         {
             result.AppendLine($" {line.CompanyName}: {line.Cost} ({line.Packages} packages)");
         
-            if (line.Tax.HasValue)
+            if (line.HasTax())
             {
-                result.AppendLine($"   {line.Tax.Value.FormatDescription()}");
+                result.AppendLine($"   {line.Tax}");
             }
         }
 

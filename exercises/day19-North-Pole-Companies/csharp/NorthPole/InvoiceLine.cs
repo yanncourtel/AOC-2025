@@ -16,4 +16,8 @@ public class InvoiceLine
         Tax = tax;
         LoyaltyPoints = loyaltyPoints;
     }
+    
+    public Money GetTaxAmount() => Tax?.Amount ?? Money.Zero;
+    
+    public bool HasTax() => Tax.HasValue;
 }

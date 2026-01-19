@@ -13,7 +13,7 @@ public readonly struct Tax
         Amount = amount;
     }
 
-    public string FormatDescription()
+    public override string ToString()
     {
         return $"Tax ({RegionName} - {Rate:P0}): {Amount}";
     }

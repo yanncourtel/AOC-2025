@@ -28,13 +28,14 @@ public class CalculatedInvoice
         TotalLoyaltyPoints = totalLoyaltyPoints;
     }
 
-    // Factory method for cleaner construction
-    public static CalculatedInvoice From(string customer, List<InvoiceLine> lines)
+    internal static CalculatedInvoice From(string customer, List<InvoiceLine> lines)
     {
-        var subtotal = lines.Aggregate(Money.Zero, (sum, line) => sum + line.Cost);
-        var totalTax = lines
-            .Where(line => line.Tax.HasValue)
-            .Aggregate(Money.Zero, (sum, line) => sum + line.Tax!.Value.Amount);
+        var subtotal = lines.Aggregate(
+            Money.Zero, 
+            (sum, line) => sum + line.Cost);
+        var totalTax = lines.Aggregate(
+            Money.Zero, 
+            (sum, line) => sum + line.GetTaxAmount());
         var totalAmount = subtotal + totalTax;
         var totalLoyaltyPoints = lines.Sum(line => line.LoyaltyPoints);
 
