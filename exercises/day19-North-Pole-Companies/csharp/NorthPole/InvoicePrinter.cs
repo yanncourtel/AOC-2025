@@ -9,24 +9,20 @@ public class InvoicePrinter
 {
     private readonly IInvoiceFormatter _formatter;
     private readonly IInvoiceFormatter _formatterWithTax;
-    private readonly ITaxCalculator _taxCalculator;
 
     public InvoicePrinter() 
         : this(
             new TextInvoiceFormatter(), 
-            new TextInvoiceWithTaxFormatter(),
-            new TaxCalculator())
+            new TextInvoiceWithTaxFormatter())
     {
     }
 
     private InvoicePrinter(
         IInvoiceFormatter formatter, 
-        IInvoiceFormatter formatterWithTax,
-        ITaxCalculator taxCalculator)
+        IInvoiceFormatter formatterWithTax)
     {
         _formatter = formatter;
         _formatterWithTax = formatterWithTax;
-        _taxCalculator = taxCalculator;
     }
     
     // Legacy methods - kept for backward compatibility
