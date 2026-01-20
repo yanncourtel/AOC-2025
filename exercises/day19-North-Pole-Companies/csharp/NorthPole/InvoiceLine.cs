@@ -8,7 +8,36 @@ public class InvoiceLine
     public Tax? Tax { get; }  // Nullable for non-tax invoices
     public int LoyaltyPoints { get; }
 
-    public InvoiceLine(string companyName, int packages, Money cost, Tax? tax, int loyaltyPoints)
+    public static InvoiceLine LineFor(EnrichedDelivery enriched)
+    {
+        var cost = enriched.CalculateCost();
+        var loyaltyPoints = enriched.CalculateLoyaltyPoints();
+
+        return new InvoiceLine(
+            enriched.Company.Name,
+            enriched.Packages,
+            cost,
+            null,
+            loyaltyPoints
+        );
+    }
+
+    public static InvoiceLine LineWithTaxFor(EnrichedDelivery enriched)
+    {
+        var cost = enriched.CalculateCost();
+        var tax = enriched.CalculateTax(cost);
+        var loyaltyPoints = enriched.CalculateLoyaltyPoints();
+
+        return new InvoiceLine(
+            enriched.Company.Name,
+            enriched.Packages,
+            cost,
+            tax,
+            loyaltyPoints
+        );
+    }
+
+    private InvoiceLine(string companyName, int packages, Money cost, Tax? tax, int loyaltyPoints)
     {
         CompanyName = companyName;
         Packages = packages;
@@ -16,8 +45,8 @@ public class InvoiceLine
         Tax = tax;
         LoyaltyPoints = loyaltyPoints;
     }
-    
+
     public Money GetTaxAmount() => Tax?.Amount ?? Money.Zero;
-    
+
     public bool HasTax() => Tax.HasValue;
 }
