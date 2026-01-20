@@ -10,6 +10,8 @@ public static class EnrichedDeliveryExtensions
         ["express"] = new ExpressDeliveryPricer(),
         ["standard"] = new StandardDeliveryPricer()
     };
+    
+    private static readonly ILoyaltyCalculator LoyaltyCalculator = new LoyaltyCalculator();
 
     public static Money CalculateCost(this EnrichedDelivery enriched)
     {
@@ -21,8 +23,9 @@ public static class EnrichedDeliveryExtensions
         return pricer.CalculateCost(enriched);
     }
     
-    public static Tax CalculateTax(this EnrichedDelivery delivery, Money cost)
-    {
-        return delivery.Company.CalculateTax(cost);
-    }
+    public static Tax CalculateTax(this EnrichedDelivery delivery, Money cost) 
+        => delivery.Company.CalculateTax(cost);
+
+    public static int CalculateLoyaltyPoints(this EnrichedDelivery enriched) 
+        => LoyaltyCalculator.CalculateLoyaltyPoints(enriched);
 }

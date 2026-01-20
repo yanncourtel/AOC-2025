@@ -55,7 +55,7 @@ public class InvoicePrinter
     {
         var cost = enriched.CalculateCost();
         var tax = includeTax ? enriched.CalculateTax(cost) : (Tax?)null;        
-        var loyaltyPoints = CalculateLoyaltyPoints(enriched);
+        var loyaltyPoints = enriched.CalculateLoyaltyPoints();
 
         return new InvoiceLine(
             enriched.Company.Name,
@@ -73,15 +73,5 @@ public class InvoicePrinter
             .ToList();
             
         return new EnrichedInvoice(invoice.Customer, enrichedDeliveries);
-    }
-
-    private int CalculateLoyaltyPoints(EnrichedDelivery enriched)
-    {
-        var points = Math.Max(enriched.Packages - 50, 0);
-        if (enriched.Company.Type == "express")
-        {
-            points += (int)Math.Floor(enriched.Packages / 10.0);
-        }
-        return points;
     }
 }

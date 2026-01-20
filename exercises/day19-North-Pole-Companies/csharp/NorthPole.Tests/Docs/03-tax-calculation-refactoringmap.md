@@ -228,9 +228,9 @@
 - [x] Consider using existing TaxRate model
 
 #### Step 5.3: Extract Loyalty Calculation
-- [ ] Create ILoyaltyCalculator interface
-- [ ] Implement LoyaltyCalculator class
-- [ ] Move CalculateLoyaltyPoints logic
+- [x] Create ILoyaltyCalculator interface
+- [x] Implement LoyaltyCalculator class
+- [x] Move CalculateLoyaltyPoints logic
 
 #### Step 5.4: Create Domain Service
 - [ ] Create InvoiceCalculator service

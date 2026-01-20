@@ -1,6 +1,6 @@
 ﻿namespace NorthPole;
 
-public class ILoyaltyCalculator
+public interface ILoyaltyCalculator
 {
-    
+    int CalculateLoyaltyPoints(EnrichedDelivery enriched);
 }
