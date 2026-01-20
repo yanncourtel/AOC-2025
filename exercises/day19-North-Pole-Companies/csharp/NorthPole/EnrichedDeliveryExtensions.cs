@@ -20,4 +20,9 @@ public static class EnrichedDeliveryExtensions
         
         return pricer.CalculateCost(enriched);
     }
+    
+    public static Tax CalculateTax(this EnrichedDelivery delivery, Money cost)
+    {
+        return delivery.Company.CalculateTax(cost);
+    }
 }
