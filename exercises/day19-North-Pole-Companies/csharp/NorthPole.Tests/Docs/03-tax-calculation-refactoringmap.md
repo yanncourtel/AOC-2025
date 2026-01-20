@@ -222,9 +222,9 @@
 - [x] Consider Strategy pattern for express/standard
 
 #### Step 5.2: Extract Tax Calculation
-- [ ] Create ITaxCalculator interface
-- [ ] Implement TaxCalculator class
-- [ ] Move CalculateTax and TaxRates
+- [x] Create ITaxCalculator interface
+- [x] Implement TaxCalculator class
+- [x] Move CalculateTax and TaxRates
 - [ ] Consider using existing TaxRate model
 
 #### Step 5.3: Extract Loyalty Calculation

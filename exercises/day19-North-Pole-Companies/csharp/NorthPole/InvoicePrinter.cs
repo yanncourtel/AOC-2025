@@ -7,26 +7,26 @@ namespace NorthPole;
 
 public class InvoicePrinter
 {
-    private static readonly Dictionary<string, (string Name, double Rate)> TaxRates = new()
-    {
-        ["north-pole"] = ("North Pole", 0.0),
-        ["nordic"] = ("Nordic Region", 0.15),
-        ["alpine"] = ("Alpine Region", 0.20),
-        ["arctic"] = ("Arctic Region", 0.10)
-    };
-    
     private readonly IInvoiceFormatter _formatter;
     private readonly IInvoiceFormatter _formatterWithTax;
+    private readonly ITaxCalculator _taxCalculator;
 
     public InvoicePrinter() 
-        : this(new TextInvoiceFormatter(), new TextInvoiceWithTaxFormatter())
+        : this(
+            new TextInvoiceFormatter(), 
+            new TextInvoiceWithTaxFormatter(),
+            new TaxCalculator())
     {
     }
 
-    private InvoicePrinter(IInvoiceFormatter formatter, IInvoiceFormatter formatterWithTax)
+    private InvoicePrinter(
+        IInvoiceFormatter formatter, 
+        IInvoiceFormatter formatterWithTax,
+        ITaxCalculator taxCalculator)
     {
         _formatter = formatter;
         _formatterWithTax = formatterWithTax;
+        _taxCalculator = taxCalculator;
     }
     
     // Legacy methods - kept for backward compatibility
@@ -58,7 +58,7 @@ public class InvoicePrinter
     private InvoiceLine CalculateInvoiceLine(EnrichedDelivery enriched, bool includeTax)
     {
         var cost = enriched.CalculateCost();
-        var tax = includeTax ? CalculateTax(cost, enriched.Company.Region) : (Tax?)null;
+        var tax = includeTax ? _taxCalculator.CalculateTax(cost, enriched.Company.Region) : (Tax?)null;
         var loyaltyPoints = CalculateLoyaltyPoints(enriched);
 
         return new InvoiceLine(
@@ -77,22 +77,6 @@ public class InvoicePrinter
             .ToList();
             
         return new EnrichedInvoice(invoice.Customer, enrichedDeliveries);
-    }
-
-    private static (string Name, double Rate) GetTaxInfo(string region)
-    {
-        if (!TaxRates.TryGetValue(region, out var taxInfo))
-        {
-            throw new Exception($"Unknown region: {region}");
-        }
-        return taxInfo;
-    }
-
-    private Tax CalculateTax(Money cost, string region)
-    {
-        var taxInfo = GetTaxInfo(region);
-        var taxAmount = cost * taxInfo.Rate;
-        return new Tax(taxInfo.Name, taxInfo.Rate, taxAmount);
     }
 
     private int CalculateLoyaltyPoints(EnrichedDelivery enriched)
