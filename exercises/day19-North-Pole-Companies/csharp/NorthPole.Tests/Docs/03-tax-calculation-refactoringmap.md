@@ -256,22 +256,22 @@
 - [x] Using EnrichedInvoice instead of Invoice
 
 ### Phase 2
-- [ ] Money type exists and is used everywhere
-- [ ] Tax type exists and encapsulates tax info
-- [ ] No primitive ints for money amounts
-- [ ] Tests pass
+- [x] Money type exists and is used everywhere
+- [x] Tax type exists and encapsulates tax info
+- [x] No primitive ints for money amounts
+- [x] Tests pass
 
 ### Phase 3
-- [ ] InvoiceLine and CalculatedInvoice exist
-- [ ] Calculation method returns CalculatedInvoice
-- [ ] Print methods only format, do not calculate
-- [ ] Tests pass
+- [x] InvoiceLine and CalculatedInvoice exist
+- [x] Calculation method returns CalculatedInvoice
+- [x] Print methods only format, do not calculate
+- [x] Tests pass
 
 ### Phase 4
-- [ ] IInvoiceFormatter exists
-- [ ] InvoicePrinter delegates to formatter
-- [ ] No StringBuilder in InvoicePrinter
-- [ ] Tests pass
+- [x] IInvoiceFormatter exists
+- [x] InvoicePrinter delegates to formatter
+- [x] No StringBuilder in InvoicePrinter
+- [x] Tests pass
 
 ### Phase 5
 - [ ] All calculators extracted to separate classes
