@@ -1,4 +1,6 @@
-﻿namespace NorthPole;
+﻿using System;
+
+namespace NorthPole;
 
 public enum Region
 {
@@ -6,4 +8,21 @@ public enum Region
     Nordic,
     Alpine,
     Arctic
+}
+
+public static class RegionExtensions
+{
+    extension(Region)
+    {
+        public static Region FromString(string regionString) => ParseRegion(regionString);
+
+        private static Region ParseRegion(string regionString) => regionString switch
+        {
+            "north-pole" => Region.NorthPole,
+            "nordic" => Region.Nordic,
+            "alpine" => Region.Alpine,
+            "arctic" => Region.Arctic,
+            _ => throw new ArgumentException($"Unknown region: {regionString}")
+        };
+    }
 }
