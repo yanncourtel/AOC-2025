@@ -2,14 +2,8 @@
 
 namespace NorthPole;
 
-public class EnrichedInvoice
+public class EnrichedInvoice(string customer, List<EnrichedDelivery> deliveries)
 {
-    public string Customer { get; }
-    public List<EnrichedDelivery> Deliveries { get; }
-
-    public EnrichedInvoice(string customer, List<EnrichedDelivery> deliveries)
-    {
-        Customer = customer;
-        Deliveries = deliveries;
-    }
+    public string Customer { get; } = customer;
+    public List<EnrichedDelivery> Deliveries { get; } = deliveries;
 }

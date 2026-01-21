@@ -1,16 +1,9 @@
 namespace NorthPole
 {
-    public class ElfCompany
+    public class ElfCompany(string name, string type, Region region)
     {
-        public string Name { get; }
-        public string Type { get; }
-        public Region Region { get; }
-
-        public ElfCompany(string name, string type, Region region)
-        {
-            Name = name;
-            Type = type;
-            Region = region;
-        }
+        public string Name { get; } = name;
+        public string Type { get; } = type;
+        public Region Region { get; } = region;
     }
 }

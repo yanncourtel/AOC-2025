@@ -1,18 +1,11 @@
 ﻿namespace NorthPole;
 
-public readonly struct Tax
+public readonly struct Tax(string regionName, double rate, Money amount)
 {
-    public Money Amount { get; }
-    
-    private string RegionName { get; }
-    private double Rate { get; }
+    public Money Amount { get; } = amount;
 
-    public Tax(string regionName, double rate, Money amount)
-    {
-        RegionName = regionName;
-        Rate = rate;
-        Amount = amount;
-    }
+    private string RegionName { get; } = regionName;
+    private double Rate { get; } = rate;
 
     public override string ToString()
     {

@@ -1,13 +1,7 @@
 ﻿namespace NorthPole;
 
-public class Delivery
+public class Delivery(string companyId, int packages)
 {
-    public string CompanyID { get; }
-    public int Packages { get; }
-
-    public Delivery(string companyID, int packages)
-    {
-        CompanyID = companyID;
-        Packages = packages;
-    }
+    public string CompanyID { get; } = companyId;
+    public int Packages { get; } = packages;
 }

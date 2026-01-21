@@ -2,14 +2,8 @@
 
 namespace NorthPole;
 
-public class Invoice
+public class Invoice(string customer, List<Delivery> deliveries)
 {
-    public string Customer { get; }
-    public List<Delivery> Deliveries { get; }
-
-    public Invoice(string customer, List<Delivery> deliveries)
-    {
-        Customer = customer;
-        Deliveries = deliveries;
-    }
+    public string Customer { get; } = customer;
+    public List<Delivery> Deliveries { get; } = deliveries;
 }

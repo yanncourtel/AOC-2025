@@ -1,13 +1,7 @@
 ﻿namespace NorthPole;
 
-public class EnrichedDelivery
+public class EnrichedDelivery(Delivery delivery, ElfCompany company)
 {
-    public int Packages { get; }
-    public ElfCompany Company { get; }
-
-    public EnrichedDelivery(Delivery delivery, ElfCompany company)
-    {
-        Packages = delivery.Packages;
-        Company = company;
-    }
+    public int Packages { get; } = delivery.Packages;
+    public ElfCompany Company { get; } = company;
 }
