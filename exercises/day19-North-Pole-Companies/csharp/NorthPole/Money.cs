@@ -15,20 +15,14 @@ public readonly struct Money
     }
 
     public static Money FromCents(int cents) => new(cents);
-    
-    public static Money FromDollars(decimal dollars) => new((int)(dollars * 100));
 
     public override string ToString()
     {
         return (AmountInCents / 100.0).ToString("C", CurrencyFormat);
     }
 
-    // Arithmetic operators
     public static Money operator +(Money left, Money right)
         => new(left.AmountInCents + right.AmountInCents);
-
-    public static Money operator -(Money left, Money right)
-        => new(left.AmountInCents - right.AmountInCents);
 
     public static Money operator *(Money money, double multiplier)
         => new((int)(money.AmountInCents * multiplier));
@@ -36,20 +30,6 @@ public readonly struct Money
     public static Money operator *(double multiplier, Money money)
         => new((int)(money.AmountInCents * multiplier));
 
-    // Comparison operators (useful for validation)
-    public static bool operator >(Money left, Money right)
-        => left.AmountInCents > right.AmountInCents;
-
-    public static bool operator <(Money left, Money right)
-        => left.AmountInCents < right.AmountInCents;
-
-    public static bool operator >=(Money left, Money right)
-        => left.AmountInCents >= right.AmountInCents;
-
-    public static bool operator <=(Money left, Money right)
-        => left.AmountInCents <= right.AmountInCents;
-
-    // Equality
     public static bool operator ==(Money left, Money right)
         => left.AmountInCents == right.AmountInCents;
 

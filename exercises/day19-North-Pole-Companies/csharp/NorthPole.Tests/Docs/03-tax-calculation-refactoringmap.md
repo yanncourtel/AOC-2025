@@ -249,8 +249,8 @@
 **Goal:** Clean up unused code, add fluent API, organize by DDD tactical patterns
 
 #### Step 6.1: Adjust TaxRate object (remove unused TaxRate)
-- [ ] Handle TaxRate in the ElfCompany with enum.
-- [ ] Remove unused TaxRate class from Models.cs
+- [x] Handle TaxRate in the ElfCompany with enum.
+- [x] Remove unused TaxRate class from Models.cs
 
 #### Step 6.2: Add Extension Methods for Declarative Syntax
 - [ ] Create InvoiceExtensions with EnrichWith() method

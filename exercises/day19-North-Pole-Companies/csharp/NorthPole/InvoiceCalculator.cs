@@ -32,7 +32,7 @@ public class InvoiceCalculator
     private InvoiceLine CalculateInvoiceLine(EnrichedDelivery delivery, bool includeTax)
     {
         var cost = CalculateCost(delivery);
-        var tax = includeTax ? CalculateTax(delivery, cost) : (Tax?)null;
+        var tax = includeTax ? CalculateTax(delivery, cost) : Tax.NoTax;
         var loyaltyPoints = _loyaltyCalculator.CalculateLoyaltyPoints(delivery);
 
         return new InvoiceLine(

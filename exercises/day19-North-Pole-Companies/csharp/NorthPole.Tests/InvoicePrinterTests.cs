@@ -3,6 +3,7 @@ using ApprovalTests.Reporters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace NorthPole.Tests
                 companies[kvp.Key] = new ElfCompany(
                     kvp.Value["name"].ToString(),
                     kvp.Value["type"].ToString(),
-                    kvp.Value["region"].ToString()
+                    ParseRegion(kvp.Value["region"].ToString())
                 );
             }
             return companies;
@@ -70,5 +71,14 @@ namespace NorthPole.Tests
 
             return new Invoice(customer, deliveries);
         }
+
+        private static Region ParseRegion(string region) => region switch
+        {
+            "north-pole" => Region.NorthPole,
+            "nordic" => Region.Nordic,
+            "alpine" => Region.Alpine,
+            "arctic" => Region.Arctic,
+            _ => throw new ArgumentException($"Unknown region: {region}")
+        };
     }
 }

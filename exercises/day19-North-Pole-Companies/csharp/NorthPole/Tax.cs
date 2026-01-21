@@ -19,5 +19,6 @@ public readonly struct Tax
         return $"Tax ({RegionName} - {Rate:P0}): {Amount}";
     }
 
-    public static readonly Tax Zero = new("None", 0.0, Money.Zero);
+    public static Tax? NoTax => null;
+
 }

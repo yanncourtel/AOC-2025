@@ -26,7 +26,7 @@ public class StandardDeliveryPricerTests
 
     private static EnrichedDelivery CreateEnrichedDelivery(string type, int packages)
     {
-        var company = new ElfCompany("Test Company", type, "test-region");
+        var company = new ElfCompany("Test Company", type, Region.NorthPole);
         var delivery = new Delivery("test-id", packages);
         return new EnrichedDelivery(delivery, company);
     }
