@@ -277,7 +277,7 @@
 - [x] All calculators extracted to separate classes
 - [x] Each calculator has interface
 - [x] InvoicePrinter is thin facade
-- [ ] Unit tests for each calculator
+- [x] Unit tests for each calculator
 - [x] Integration tests pass
 
 ---
