@@ -233,10 +233,10 @@
 - [x] Move CalculateLoyaltyPoints logic
 
 #### Step 5.4: Create Domain Service
-- [ ] Create InvoiceCalculator service
-- [ ] Inject IDeliveryPricer, ITaxCalculator, ILoyaltyCalculator
-- [ ] Move calculation orchestration
-- [ ] InvoicePrinter becomes thin facade
+- [x] Create InvoiceCalculator service
+- [x] Inject IDeliveryPricer, ITaxCalculator, ILoyaltyCalculator
+- [x] Move calculation orchestration
+- [x] InvoicePrinter becomes thin facade
 
 **Impact:** Fully testable components, easy to extend  
 **Risk:** Low (if Phase 3 done correctly)  
@@ -274,11 +274,11 @@
 - [x] Tests pass
 
 ### Phase 5
-- [ ] All calculators extracted to separate classes
-- [ ] Each calculator has interface
-- [ ] InvoicePrinter is thin facade
+- [x] All calculators extracted to separate classes
+- [x] Each calculator has interface
+- [x] InvoicePrinter is thin facade
 - [ ] Unit tests for each calculator
-- [ ] Integration tests pass
+- [x] Integration tests pass
 
 ---
 

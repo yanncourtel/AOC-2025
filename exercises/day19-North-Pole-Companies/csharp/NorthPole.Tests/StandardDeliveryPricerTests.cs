@@ -16,14 +16,11 @@ public class StandardDeliveryPricerTests
     [InlineData(200, 116000)]   // Large order (30000 + 1000 + 150*300 + 200*200)
     public void CalculateCost_ReturnsCorrectAmount(int packages, int expectedCents)
     {
-        // Arrange
         var pricer = new StandardDeliveryPricer();
         var delivery = CreateEnrichedDelivery("standard", packages);
 
-        // Act
         var result = pricer.CalculateCost(delivery);
 
-        // Assert
         Assert.Equal(Money.FromCents(expectedCents), result);
     }
 

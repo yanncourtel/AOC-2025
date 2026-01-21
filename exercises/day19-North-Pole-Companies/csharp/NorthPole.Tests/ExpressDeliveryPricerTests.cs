@@ -15,14 +15,11 @@ public class ExpressDeliveryPricerTests
     [InlineData(200, 100000)]   // Far over threshold
     public void CalculateCost_ReturnsCorrectAmount(int packages, int expectedCents)
     {
-        // Arrange
         var pricer = new ExpressDeliveryPricer();
         var delivery = CreateEnrichedDelivery("express", packages);
 
-        // Act
         var result = pricer.CalculateCost(delivery);
 
-        // Assert
         Assert.Equal(Money.FromCents(expectedCents), result);
     }
 
