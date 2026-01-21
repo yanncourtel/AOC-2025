@@ -259,10 +259,10 @@
 - [x] Extensions pass dependencies explicitly (no hidden statics)
 
 #### Step 6.3: Package Organization (DDD Tactical Patterns)
-- [ ] Create Domain/ namespace for models and value objects
-- [ ] Create Calculation/ namespace for calculators and results
-- [ ] Create Formatting/ namespace for formatters
-- [ ] Keep InvoicePrinter in root as application facade
+- [x] Create Domain/ namespace for models and value objects
+- [x] Create Calculation/ namespace for calculators and results
+- [x] Create Formatting/ namespace for formatters
+- [x] Keep InvoicePrinter in root as application facade
 
 **Impact:** Cleaner API, better organization, easier navigation
 **Risk:** Low (mostly moving files and adding using statements)
@@ -307,11 +307,11 @@
 - [x] Integration tests pass
 
 ### Phase 6
-- [ ] Adjust TaxRate object (remove unused TaxRate)
-- [ ] Extension methods provide fluent API
-- [ ] Extensions pass dependencies explicitly
-- [ ] Code organized into Domain/, Calculation/, Formatting/ namespaces
-- [ ] Tests pass
+- [x] Adjust TaxRate object (remove unused TaxRate)
+- [x] Extension methods provide fluent API
+- [x] Extensions pass dependencies explicitly
+- [x] Code organized into Domain/, Calculation/, Formatting/ namespaces
+- [x] Tests pass
 
 ---
 
