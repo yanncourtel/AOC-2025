@@ -238,9 +238,35 @@
 - [x] Move calculation orchestration
 - [x] InvoicePrinter becomes thin facade
 
-**Impact:** Fully testable components, easy to extend  
-**Risk:** Low (if Phase 3 done correctly)  
+**Impact:** Fully testable components, easy to extend
+**Risk:** Low (if Phase 3 done correctly)
 **Tests:** Should pass, add unit tests per calculator
+
+---
+
+### Phase 6: DDD Refinements (Optional)
+
+**Goal:** Clean up unused code, add fluent API, organize by DDD tactical patterns
+
+#### Step 6.1: Adjust TaxRate object (remove unused TaxRate)
+- [ ] Handle TaxRate in the ElfCompany with enum.
+- [ ] Remove unused TaxRate class from Models.cs
+
+#### Step 6.2: Add Extension Methods for Declarative Syntax
+- [ ] Create InvoiceExtensions with EnrichWith() method
+- [ ] Create EnrichedInvoiceExtensions with CalculateWith() method
+- [ ] Create CalculatedInvoiceExtensions with FormatWith() method
+- [ ] Extensions pass dependencies explicitly (no hidden statics)
+
+#### Step 6.3: Package Organization (DDD Tactical Patterns)
+- [ ] Create Domain/ namespace for models and value objects
+- [ ] Create Calculation/ namespace for calculators and results
+- [ ] Create Formatting/ namespace for formatters
+- [ ] Keep InvoicePrinter in root as application facade
+
+**Impact:** Cleaner API, better organization, easier navigation
+**Risk:** Low (mostly moving files and adding using statements)
+**Tests:** Should pass without changes
 
 ---
 
@@ -280,6 +306,13 @@
 - [x] Unit tests for each calculator
 - [x] Integration tests pass
 
+### Phase 6
+- [ ] Adjust TaxRate object (remove unused TaxRate)
+- [ ] Extension methods provide fluent API
+- [ ] Extensions pass dependencies explicitly
+- [ ] Code organized into Domain/, Calculation/, Formatting/ namespaces
+- [ ] Tests pass
+
 ---
 
 ## Rollback Strategy Per Phase
@@ -291,6 +324,7 @@
 | Phase 3 | Revert to inline calculation | Medium |
 | Phase 4 | Move formatting back to Print | Low |
 | Phase 5 | Merge calculators back | Low |
+| Phase 6 | Revert namespaces, remove extensions | Very Low |
 
 ---
 
@@ -323,11 +357,11 @@
 
 ## Current Status
 
-- Implementation Complete: Both tests passing
-- Domain Analysis Complete: Responsibilities identified
-- Refactoring Phase: Ready to start Phase 1
+- Phases 1-5 Complete: All calculators extracted with unit tests
+- All 38 tests passing
+- Refactoring Phase: Ready to start Phase 6
 
-**Next Action:** Extract FormatMoney helper (Phase 1, Step 1)
+**Next Action:** Add extension methods for declarative syntax (Phase 6, Step 6.2)
 
 ---
 
