@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NorthPole;
+namespace NorthPole.Domain;
 
 public static class InvoiceExtensions
 {

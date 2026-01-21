@@ -1,4 +1,4 @@
-﻿namespace NorthPole;
+﻿namespace NorthPole.Domain;
 
 public class EnrichedDelivery(Delivery delivery, ElfCompany company)
 {

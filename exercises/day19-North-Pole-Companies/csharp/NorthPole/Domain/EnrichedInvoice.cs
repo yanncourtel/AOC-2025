@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NorthPole;
+namespace NorthPole.Domain;
 
 public class EnrichedInvoice(string customer, List<EnrichedDelivery> deliveries)
 {

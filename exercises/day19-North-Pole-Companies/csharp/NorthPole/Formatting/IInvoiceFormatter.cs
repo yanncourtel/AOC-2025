@@ -1,4 +1,6 @@
-﻿namespace NorthPole;
+﻿using NorthPole.Calculation;
+
+namespace NorthPole.Formatting;
 
 public interface IInvoiceFormatter
 {

@@ -1,7 +1,7 @@
 ﻿
 using System.Globalization;
 
-namespace NorthPole;
+namespace NorthPole.Domain;
 
 public readonly struct Money
 {

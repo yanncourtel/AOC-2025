@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NorthPole;
+namespace NorthPole.Domain;
 
 public enum Region
 {

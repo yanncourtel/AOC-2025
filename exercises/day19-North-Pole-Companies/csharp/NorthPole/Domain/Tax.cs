@@ -1,4 +1,4 @@
-﻿namespace NorthPole;
+﻿namespace NorthPole.Domain;
 
 public readonly struct Tax(string regionName, double rate, Money amount)
 {

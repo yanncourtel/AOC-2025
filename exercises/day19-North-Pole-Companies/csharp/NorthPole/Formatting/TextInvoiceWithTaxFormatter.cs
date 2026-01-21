@@ -1,6 +1,7 @@
 ﻿using System.Text;
+using NorthPole.Calculation;
 
-namespace NorthPole;
+namespace NorthPole.Formatting;
 
 public class TextInvoiceWithTaxFormatter : IInvoiceFormatter
 {

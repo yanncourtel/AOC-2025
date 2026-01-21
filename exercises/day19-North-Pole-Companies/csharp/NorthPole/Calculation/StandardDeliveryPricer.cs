@@ -1,4 +1,6 @@
-﻿namespace NorthPole;
+﻿using NorthPole.Domain;
+
+namespace NorthPole.Calculation;
 
 public class StandardDeliveryPricer : IDeliveryPricer
 {

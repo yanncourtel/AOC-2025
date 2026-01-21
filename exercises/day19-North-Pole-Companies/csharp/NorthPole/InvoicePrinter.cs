@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using NorthPole.Calculation;
+using NorthPole.Domain;
+using NorthPole.Formatting;
 
 namespace NorthPole;
 

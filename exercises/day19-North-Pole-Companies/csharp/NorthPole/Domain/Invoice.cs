@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NorthPole;
+namespace NorthPole.Domain;
 
 public class Invoice(string customer, List<Delivery> deliveries)
 {

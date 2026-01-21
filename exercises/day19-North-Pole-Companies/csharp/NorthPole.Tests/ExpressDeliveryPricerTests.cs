@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using NorthPole.Calculation;
+using NorthPole.Domain;
+using Xunit;
 
 namespace NorthPole.Tests;
 

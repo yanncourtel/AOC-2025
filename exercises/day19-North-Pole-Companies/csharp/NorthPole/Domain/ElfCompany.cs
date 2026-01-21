@@ -1,4 +1,4 @@
-namespace NorthPole
+namespace NorthPole.Domain
 {
     public class ElfCompany(string name, string type, Region region)
     {

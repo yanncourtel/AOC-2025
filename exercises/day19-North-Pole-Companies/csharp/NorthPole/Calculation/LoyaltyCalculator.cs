@@ -1,6 +1,7 @@
 ﻿using System;
+using NorthPole.Domain;
 
-namespace NorthPole;
+namespace NorthPole.Calculation;
 
 public class LoyaltyCalculator : ILoyaltyCalculator
 {
