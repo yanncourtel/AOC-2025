@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace NorthPole;
 
@@ -22,26 +21,15 @@ public class InvoicePrinter(
     {
     }
 
-    public string Print(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies) 
-        => Print(
-            EnrichInvoice(invoice, elfCompanies));
+    public string Print(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
+        => invoice
+            .EnrichWith(elfCompanies)
+            .CalculateWithoutTaxes(calculator)
+            .FormatWith(formatter);
 
-    private string Print(EnrichedInvoice enriched) 
-        => formatter.Format(
-            calculator.Calculate(enriched, includeTax: false));
-
-    public string PrintWithTaxes(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies) 
-        => PrintWithTaxes(
-            EnrichInvoice(invoice, elfCompanies));
-
-    private string PrintWithTaxes(EnrichedInvoice enriched) 
-        => taxFormatter.Format(
-            calculator.Calculate(enriched, includeTax: true));
-
-    private static EnrichedInvoice EnrichInvoice(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
-        => new(
-            invoice.Customer,
-            invoice.Deliveries
-                .Select(delivery => new EnrichedDelivery(delivery, elfCompanies[delivery.CompanyID]))
-                .ToList());
+    public string PrintWithTaxes(Invoice invoice, Dictionary<string, ElfCompany> elfCompanies)
+        => invoice
+            .EnrichWith(elfCompanies)
+            .CalculateWithTaxes(calculator)
+            .FormatWith(taxFormatter);
 }

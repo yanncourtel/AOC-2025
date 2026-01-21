@@ -253,10 +253,10 @@
 - [x] Remove unused TaxRate class from Models.cs
 
 #### Step 6.2: Add Extension Methods for Declarative Syntax
-- [ ] Create InvoiceExtensions with EnrichWith() method
-- [ ] Create EnrichedInvoiceExtensions with CalculateWith() method
-- [ ] Create CalculatedInvoiceExtensions with FormatWith() method
-- [ ] Extensions pass dependencies explicitly (no hidden statics)
+- [x] Create InvoiceExtensions with EnrichWith() method
+- [x] Create EnrichedInvoiceExtensions with CalculateWith() method
+- [x] Create CalculatedInvoiceExtensions with FormatWith() method
+- [x] Extensions pass dependencies explicitly (no hidden statics)
 
 #### Step 6.3: Package Organization (DDD Tactical Patterns)
 - [ ] Create Domain/ namespace for models and value objects
