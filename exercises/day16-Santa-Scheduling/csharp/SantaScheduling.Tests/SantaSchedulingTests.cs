@@ -30,15 +30,12 @@ public class SantaSchedulingTests
         Assert.Equal(Dec(expectedDay, expectedHour), SantaScheduler.GetArrivalTime(timezone));
     }
     
-    [Fact(DisplayName = "TICKET-104: Investigation - Mumbai and Newfoundland")]
-    public void Ticket104_Investigation()
+    [Theory(DisplayName = "TICKET-104: Fractional offsets — Newfoundland (UTC-3.5) and Mumbai (UTC+5.5) are handled correctly")]
+    [InlineData(-3.5, 24, 23)]  // Newfoundland: -3.5 < 0 → Americas → Dec 24 23:00
+    [InlineData( 5.5, 24, 20)]  // Mumbai: 5.5 >= 0 → Europe/East → Dec 24 20:00
+    public void Ticket104_FractionalOffsets(double timezone, int expectedDay, int expectedHour)
     {
-        // After refactoring, test:
-        // - Mumbai: UTC+5.5
-        // - Newfoundland: UTC-3.5
-        // - How are half-hour offsets handled?
-        
-        Assert.True(true, "Refactor, then investigate");
+        Assert.Equal(Dec(expectedDay, expectedHour), SantaScheduler.GetArrivalTime(timezone));
     }
     
     [Fact(DisplayName = "TICKET-105: Investigation - Map all regions")]
