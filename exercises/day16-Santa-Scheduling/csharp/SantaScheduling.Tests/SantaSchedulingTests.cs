@@ -9,11 +9,12 @@ public class SantaSchedulingTests
      * the scheduling logic from Program.cs into a testable method.
      */
     
-    [Fact(DisplayName = "TICKET-101: Investigation - Understand the pattern")]
-    public void Ticket101_Investigation()
+    [Theory(DisplayName = "TICKET-101: Day boundary — Hawaii (UTC-10) lands Dec 25, New York (UTC-5) lands Dec 24")]
+    [InlineData(-10, 25)] // Hawaii: tz < -5 → Dec 25
+    [InlineData(-5,  24)] // New York: tz == -5, NOT < -5 → Dec 24
+    public void Ticket101_DayBoundary(double timezone, int expectedDay)
     {
-        // For now, this test reminds you to refactor first
-        Assert.True(true, "Refactor Program.cs to make the logic testable");
+        Assert.Equal(expectedDay, SantaScheduler.GetArrivalTime(timezone).Day);
     }
     
     [Fact(DisplayName = "TICKET-102: Investigation - Compare arrival times")]

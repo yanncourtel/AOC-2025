@@ -1,3 +1,5 @@
+using SantaScheduling;
+
 /**
  * Santa Scheduling System
  * Written by Klaus Müller, 1987
@@ -23,12 +25,7 @@ double tz = double.Parse(args[1]);
 if (cmd == "a")
 {
     // NOTE: Your task is to document THIS arrival calculation only
-    DateTime arrival = new DateTime(
-        2024, 12,
-        24 + (tz < -5 ? 1 : 0),
-        tz < 0 ? 23 : 20,
-        0, 0
-    );
+    DateTime arrival = SantaScheduler.GetArrivalTime(tz);
     Console.WriteLine($"Santa arrives: {arrival}");
 }
 else if (cmd == "l")
