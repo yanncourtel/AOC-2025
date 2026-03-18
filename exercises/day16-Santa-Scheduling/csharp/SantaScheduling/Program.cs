@@ -29,14 +29,7 @@ if (cmd == "a")
 }
 else if (cmd == "l")
 {
-    // KLAUS SAYS: DO NOT TOUCH! Departure logic is still being used by North Pole systems.
-    // You only need to understand arrival times for now.
-    DateTime departure = new DateTime(
-        2024, 12,
-        25 + (tz < -5 ? 1 : 0),
-        tz < 0 ? 4 : 2,
-        0, 0
-    );
+    DateTime departure = SantaScheduler.GetDepartureTime(tz);
     Console.WriteLine($"Santa departs: {departure}");
 }
 else

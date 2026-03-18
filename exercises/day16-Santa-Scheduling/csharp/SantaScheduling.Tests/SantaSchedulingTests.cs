@@ -38,6 +38,23 @@ public class SantaSchedulingTests
         Assert.Equal(Dec(expectedDay, expectedHour), SantaScheduler.GetArrivalTime(timezone));
     }
     
+    [Theory(DisplayName = "SANTA-SPECIAL: Departure — FarWest Dec 26 04:00, Americas Dec 25 04:00, Europe Dec 25 02:00")]
+    //         tz      day  hour
+    // --- Far-west: departs Dec 26 04:00 ---
+    [InlineData(-10,   26,   4)]  // Hawaii
+    [InlineData(-6,    26,   4)]  // Central America
+    // --- Americas: departs Dec 25 04:00 ---
+    [InlineData(-5,    25,   4)]  // New York — boundary belongs to Americas
+    [InlineData(-3.5,  25,   4)]  // Newfoundland
+    // --- Europe/East: departs Dec 25 02:00 ---
+    [InlineData( 0,    25,   2)]  // London — boundary belongs to Europe
+    [InlineData( 5.5,  25,   2)]  // Mumbai
+    [InlineData( 9,    25,   2)]  // Tokyo
+    public void SantaSpecial_DepartureTime(double timezone, int expectedDay, int expectedHour)
+    {
+        Assert.Equal(Dec(expectedDay, expectedHour), SantaScheduler.GetDepartureTime(timezone));
+    }
+
     [Theory(DisplayName = "TICKET-105: Full zone map — 3 rules cover UTC-12 to UTC+14")]
     //         tz      day  hour
     // --- Far-west (tz < -5): Dec 25 23:00 ---

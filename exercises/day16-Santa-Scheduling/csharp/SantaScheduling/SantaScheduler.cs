@@ -25,6 +25,12 @@ public static class SantaScheduler
     private const int December     = 12;
     private const int ChristmasEve = 24;
     private const int ChristmasDay = 25;
+    private const int BoxingDay    = 26;
+
+    // Europe/Asia departs early morning — roads are quiet at 02:00
+    // Americas departs pre-dawn — Santa needs the extra hours for the larger land mass
+    private const int EarlyMorningSlot = 2;
+    private const int PreDawnSlot      = 4;
 
     public static DateTime GetArrivalTime(double timezoneOffset) =>
         GetZone(timezoneOffset) switch
@@ -32,6 +38,15 @@ public static class SantaScheduler
             Zone.FarWest      => new DateTime(DeliveryYear, December, ChristmasDay, LateNightSlot,    0, 0),
             Zone.Americas     => new DateTime(DeliveryYear, December, ChristmasEve, LateNightSlot,    0, 0),
             Zone.EuropeOrEast => new DateTime(DeliveryYear, December, ChristmasEve, EarlyEveningSlot, 0, 0),
+            _                 => throw new ArgumentOutOfRangeException(nameof(timezoneOffset))
+        };
+
+    public static DateTime GetDepartureTime(double timezoneOffset) =>
+        GetZone(timezoneOffset) switch
+        {
+            Zone.FarWest      => new DateTime(DeliveryYear, December, BoxingDay,    PreDawnSlot,      0, 0),
+            Zone.Americas     => new DateTime(DeliveryYear, December, ChristmasDay, PreDawnSlot,      0, 0),
+            Zone.EuropeOrEast => new DateTime(DeliveryYear, December, ChristmasDay, EarlyMorningSlot, 0, 0),
             _                 => throw new ArgumentOutOfRangeException(nameof(timezoneOffset))
         };
 }
