@@ -38,14 +38,24 @@ public class SantaSchedulingTests
         Assert.Equal(Dec(expectedDay, expectedHour), SantaScheduler.GetArrivalTime(timezone));
     }
     
-    [Fact(DisplayName = "TICKET-105: Investigation - Map all regions")]
-    public void Ticket105_Investigation()
+    [Theory(DisplayName = "TICKET-105: Full zone map — 3 rules cover UTC-12 to UTC+14")]
+    //         tz      day  hour
+    // --- Far-west (tz < -5): Dec 25 23:00 ---
+    [InlineData(-12,   25,  23)]  // UTC-12 (Baker Island) — westernmost
+    [InlineData(-10,   25,  23)]  // UTC-10 (Hawaii)
+    [InlineData(-6,    25,  23)]  // UTC-6  (Central America) — far-west edge
+    // --- Americas (-5 ≤ tz < 0): Dec 24 23:00 ---
+    [InlineData(-5,    24,  23)]  // UTC-5  (New York) — americas edge
+    [InlineData(-3.5,  24,  23)]  // UTC-3.5 (Newfoundland)
+    [InlineData(-1,    24,  23)]  // UTC-1  (Azores) — americas far edge
+    // --- Europe/Asia/Pacific (tz ≥ 0): Dec 24 20:00 ---
+    [InlineData( 0,    24,  20)]  // UTC+0  (London) — europe edge
+    [InlineData( 1,    24,  20)]  // UTC+1  (Paris)
+    [InlineData( 5.5,  24,  20)]  // UTC+5.5 (Mumbai)
+    [InlineData( 9,    24,  20)]  // UTC+9  (Tokyo)
+    [InlineData(14,    24,  20)]  // UTC+14 (Kiribati) — easternmost
+    public void Ticket105_FullZoneMap(double timezone, int expectedDay, int expectedHour)
     {
-        // After refactoring, document:
-        // - How many different rules are there?
-        // - What timezone ranges does each rule cover?
-        // - UTC-12 to UTC+14 - what's the complete picture?
-        
-        Assert.True(true, "Extract logic, then map the rules");
+        Assert.Equal(Dec(expectedDay, expectedHour), SantaScheduler.GetArrivalTime(timezone));
     }
 }
