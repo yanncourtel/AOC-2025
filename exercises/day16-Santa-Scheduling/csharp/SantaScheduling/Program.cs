@@ -6,33 +6,28 @@ using SantaScheduling;
  * 
  * Calculates Santa's arrival and departure times for different timezones.
  * Usage: SantaScheduling <command> <timezone>
- * Commands: a (arrive), l (leave)
+ * Commands: a (arrive), l (leave) — see ArriveCommand / DepartCommand constants below
  */
+
+const string arriveCommand  = "a";
+const string departCommand  = "l";
 
 if (args.Length < 2)
 {
     Console.WriteLine("Usage: SantaScheduling <command> <timezone>");
     Console.WriteLine("Commands:");
-    Console.WriteLine("  a - Show arrival time");
-    Console.WriteLine("  l - Show departure time");
-    Console.WriteLine("Example: SantaScheduling a -5");
+    Console.WriteLine($"  {arriveCommand} - Show arrival time");
+    Console.WriteLine($"  {departCommand} - Show departure time");
+    Console.WriteLine($"Example: SantaScheduling {arriveCommand} -5");
     return;
 }
 
-string cmd = args[0];
-double tz = double.Parse(args[1]);
+var cmd = args[0];
+var tz = double.Parse(args[1]);
 
-if (cmd == "a")
+Console.WriteLine(cmd switch
 {
-    DateTime arrival = SantaScheduler.GetArrivalTime(tz);
-    Console.WriteLine($"Santa arrives: {arrival}");
-}
-else if (cmd == "l")
-{
-    DateTime departure = SantaScheduler.GetDepartureTime(tz);
-    Console.WriteLine($"Santa departs: {departure}");
-}
-else
-{
-    Console.WriteLine($"Unknown command: {cmd}");
-}
+    arriveCommand => $"Santa arrives: {SantaScheduler.GetArrivalTime(tz)}",
+    departCommand => $"Santa departs: {SantaScheduler.GetDepartureTime(tz)}",
+    _             => $"Unknown command: {cmd}"
+});
