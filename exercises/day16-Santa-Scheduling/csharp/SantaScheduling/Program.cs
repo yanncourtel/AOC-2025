@@ -24,7 +24,6 @@ double tz = double.Parse(args[1]);
 
 if (cmd == "a")
 {
-    // NOTE: Your task is to document THIS arrival calculation only
     DateTime arrival = SantaScheduler.GetArrivalTime(tz);
     Console.WriteLine($"Santa arrives: {arrival}");
 }

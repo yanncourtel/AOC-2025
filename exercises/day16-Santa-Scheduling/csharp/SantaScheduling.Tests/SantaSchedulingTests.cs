@@ -4,7 +4,7 @@ namespace SantaScheduling.Tests;
 
 public class SantaSchedulingTests
 {
-    private static DateTime Dec(int day, int hour) => new(2024, 12, day, hour, 0, 0);
+    private static DateTime Dec(int day, int hour) => new(SantaScheduler.DeliveryYear, 12, day, hour, 0, 0);
 
     [Theory(DisplayName = "TICKET-101: Day boundary — Hawaii (UTC-10) lands Dec 25, New York (UTC-5) lands Dec 24")]
     [InlineData(-10, 25, 23)]  // Hawaii: tz < -5 → Far-west → Dec 25 23:00
