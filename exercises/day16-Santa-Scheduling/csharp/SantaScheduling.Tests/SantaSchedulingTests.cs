@@ -17,15 +17,12 @@ public class SantaSchedulingTests
         Assert.Equal(expectedDay, SantaScheduler.GetArrivalTime(timezone).Day);
     }
     
-    [Fact(DisplayName = "TICKET-102: Investigation - Compare arrival times")]
-    public void Ticket102_Investigation()
+    [Theory(DisplayName = "TICKET-102: Time slot — London (UTC+0) at 20:00, New York (UTC-5) at 23:00")]
+    [InlineData( 0, 20)]  // London: tz >= 0 → Europe zone → 20:00
+    [InlineData(-5, 23)]  // New York: tz < 0 → Americas zone → 23:00
+    public void Ticket102_TimeSlot(double timezone, int expectedHour)
     {
-        // After refactoring, investigate:
-        // - London (UTC+0) arrival time
-        // - New York (UTC-5) arrival time
-        // - Why the 3-hour difference?
-        
-        Assert.True(true, "Extract the logic first, then investigate");
+        Assert.Equal(expectedHour, SantaScheduler.GetArrivalTime(timezone).Hour);
     }
     
     [Fact(DisplayName = "TICKET-103: Investigation - Test boundary points")]
