@@ -1,5 +1,7 @@
 namespace SantaScheduling;
 
+public enum Zone { FarWest, Americas, EuropeOrEast }
+
 public static class SantaScheduler
 {
     // Zone boundaries (boundary value belongs to the eastern zone)
@@ -7,23 +9,29 @@ public static class SantaScheduler
     private const double EuropeThreshold  =  0;  // tz < 0  → Americas;  tz == 0  → Europe
 
     private static bool IsFarWest(double tz)  => tz < FarWestThreshold;  // UTC-6 to UTC-12
-    private static bool IsAmericas(double tz) => tz < EuropeThreshold;   // UTC-5 to UTC-0.x (includes Far-west for hour slot)
+    private static bool IsAmericas(double tz) => tz < EuropeThreshold;   // UTC-5 to UTC-0.x
+
+    private static Zone GetZone(double tz) =>
+        IsFarWest(tz)  ? Zone.FarWest :
+        IsAmericas(tz) ? Zone.Americas :
+                         Zone.EuropeOrEast;
 
     // Europe/Asia gets an early evening slot — children are sent to bed at 20:00
     // Americas gets a late night slot — children stay up later, Santa arrives at 23:00
     private const int EarlyEveningSlot = 20;
     private const int LateNightSlot    = 23;
 
-    public const  int DeliveryYear  = 2024;
-    private const int December      = 12;
-    private const int ChristmasEve  = 24;
-    private const int ChristmasDay  = 25;
+    public const  int DeliveryYear = 2024;
+    private const int December     = 12;
+    private const int ChristmasEve = 24;
+    private const int ChristmasDay = 25;
 
     public static DateTime GetArrivalTime(double timezoneOffset) =>
-        new(DeliveryYear,
-            December,
-            IsFarWest(timezoneOffset) ? ChristmasDay : ChristmasEve,
-            IsAmericas(timezoneOffset) ? LateNightSlot : EarlyEveningSlot,
-            0,
-            0);
+        GetZone(timezoneOffset) switch
+        {
+            Zone.FarWest      => new DateTime(DeliveryYear, December, ChristmasDay, LateNightSlot,    0, 0),
+            Zone.Americas     => new DateTime(DeliveryYear, December, ChristmasEve, LateNightSlot,    0, 0),
+            Zone.EuropeOrEast => new DateTime(DeliveryYear, December, ChristmasEve, EarlyEveningSlot, 0, 0),
+            _                 => throw new ArgumentOutOfRangeException(nameof(timezoneOffset))
+        };
 }
