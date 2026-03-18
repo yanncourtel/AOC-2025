@@ -25,15 +25,15 @@ public class SantaSchedulingTests
         Assert.Equal(expectedHour, SantaScheduler.GetArrivalTime(timezone).Hour);
     }
     
-    [Fact(DisplayName = "TICKET-103: Investigation - Test boundary points")]
-    public void Ticket103_Investigation()
+    [Theory(DisplayName = "TICKET-103: Boundary points — tz=-5 belongs to Americas (23:00), tz=0 belongs to Europe (20:00)")]
+    [InlineData(-5,  12, 24, 23)]  // -5 is NOT < -5 → Americas zone → Dec 24 23:00
+    [InlineData( 0,  12, 24, 20)]  // 0 is NOT < 0  → Europe zone  → Dec 24 20:00
+    public void Ticket103_BoundaryPoints(double timezone, int expectedMonth, int expectedDay, int expectedHour)
     {
-        // After refactoring, test:
-        // - What happens at exactly -5?
-        // - What happens at exactly 0?
-        // - Are they grouped with the zones before or after?
-        
-        Assert.True(true, "Make it testable first");
+        var result = SantaScheduler.GetArrivalTime(timezone);
+        Assert.Equal(expectedMonth, result.Month);
+        Assert.Equal(expectedDay,   result.Day);
+        Assert.Equal(expectedHour,  result.Hour);
     }
     
     [Fact(DisplayName = "TICKET-104: Investigation - Mumbai and Newfoundland")]
